@@ -1,0 +1,6 @@
+*.a
+*.o
+a.out
+test*.c
+main.c
+vgcore*
