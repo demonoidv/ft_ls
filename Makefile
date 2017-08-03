@@ -8,9 +8,11 @@ PATH_OBJ =		objs/
 CC =			gcc -Wall -Werror -Wextra
 INC =			-I includes/ -I libft/includes/
 
-SRC =			
+SRC =			$(PATH_SRC)main.c\
+				$(PATH_SRC)ft_ls_parser.c\
+				$(PATH_SRC)ft_ls_error.c
 
-OBJ =			
+OBJ =			$(patsubst $(PATH_SRC)%.c, $(PATH_OBJ)%.o, $(SRC))
 
 all: $(NAME)
 
@@ -39,3 +41,10 @@ fclean: clean
 	@echo "$(NAME) and $(LIBFT) removed."
 
 re: fclean all
+
+test: all
+	@echo "##########Start Test##########"
+	@echo ""
+	@./$(NAME) -R
+	@echo ""
+	@echo "###########End Test###########"
