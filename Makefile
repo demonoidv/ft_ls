@@ -10,7 +10,11 @@ INC =			-I includes/ -I libft/includes/
 
 SRC =			$(PATH_SRC)main.c\
 				$(PATH_SRC)ft_ls_parser.c\
-				$(PATH_SRC)ft_ls_error.c
+				$(PATH_SRC)ft_ls_error.c\
+				$(PATH_SRC)ft_ls_tools.c\
+				$(PATH_SRC)ft_ls_sort.c\
+				$(PATH_SRC)ft_ls_display.c\
+				$(PATH_SRC)ft_ls_recursion.c
 
 OBJ =			$(patsubst $(PATH_SRC)%.c, $(PATH_OBJ)%.o, $(SRC))
 
@@ -45,6 +49,6 @@ re: fclean all
 test: all
 	@echo "##########Start Test##########"
 	@echo ""
-	@./$(NAME) -R
+	./$(NAME) -R
 	@echo ""
 	@echo "###########End Test###########"
