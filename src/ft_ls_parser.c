@@ -17,6 +17,8 @@ static char	get_flag(char *arg, char *flag)
 			*flag = (FLAG_R_LOW | *flag);
 		else if (arg[i] == 't')
 			*flag = (FLAG_T_LOW | *flag);
+		else if (arg[i] == '1')
+			*flag += 0;
 		else
 			return (arg[i]);
 		i++;
@@ -34,6 +36,9 @@ int			ft_ls_parser(int ac, char **av, char *flag)
 	while (i < ac && av[i][0] == '-' && !(res = get_flag(av[i], flag)))
 		i++;
 	if (res)
+	{
 		ft_ls_error(INVALID_FLAG, &res);
+		exit(1);
+	}
 	return (i);
 }

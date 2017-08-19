@@ -9,7 +9,8 @@ void	ft_ls_recursion(t_finfo **file_tab, char flag)
 	while (file_tab[i])
 	{
 		path = (file_tab[i])->path;
-		if (((file_tab[i])->file->st_mode & ISDIR))
+		if (S_ISDIR((file_tab[i])->file->st_mode))
+		{
 			if (ft_strcmp((file_tab[i])->name, ".") && \
 			ft_strcmp((file_tab[i])->name, ".."))
 			{
@@ -25,6 +26,7 @@ void	ft_ls_recursion(t_finfo **file_tab, char flag)
 				if (path)
 					ft_strdel(&path);
 			}
+		}
 		ft_ls_del_finfo(&(file_tab[i]));
 		i++;
 	}

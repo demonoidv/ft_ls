@@ -14,6 +14,9 @@ SRC =			$(PATH_SRC)main.c\
 				$(PATH_SRC)ft_ls_tools.c\
 				$(PATH_SRC)ft_ls_sort.c\
 				$(PATH_SRC)ft_ls_display.c\
+				$(PATH_SRC)ft_ls_finfo.c\
+				$(PATH_SRC)ft_ls_flag_l.c\
+				$(PATH_SRC)ft_ls_get_permission.c\
 				$(PATH_SRC)ft_ls_recursion.c
 
 OBJ =			$(patsubst $(PATH_SRC)%.c, $(PATH_OBJ)%.o, $(SRC))
@@ -49,6 +52,6 @@ re: fclean all
 test: all
 	@echo "##########Start Test##########"
 	@echo ""
-	./$(NAME) -R
+	./$(NAME) libft auteur
 	@echo ""
 	@echo "###########End Test###########"
