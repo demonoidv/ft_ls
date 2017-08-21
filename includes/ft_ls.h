@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_ls.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/08/20 14:24:18 by vsporer           #+#    #+#             */
+/*   Updated: 2017/08/21 02:42:38 by demodev          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef FT_LS_H
 # define FT_LS_H
 
@@ -7,31 +19,38 @@
 # include <dirent.h>
 # include <errno.h>
 
-# define FLAG_L_LOW 0b00010000
-# define FLAG_R_UP 0b00001000
-# define FLAG_A_LOW 0b00000100
-# define FLAG_R_LOW 0b00000010
-# define FLAG_T_LOW 0b00000001
 # define INVALID_FLAG 0
+# define FLAG_L_LOW(n) (n & 1)
+# define FLAG_R_UP(n) (n & 2)
+# define FLAG_A_LOW(n) (n & 4)
+# define FLAG_R_LOW(n) (n & 8)
+# define FLAG_T_LOW(n) (n & 16)
+# define MAJOR(dev) ((dev >> 24) & 0xff)
+# define MINOR(dev) (dev & 0xffffff)
 # define USAGE "usage: ft_ls [-Ralrt] [file ...]"
 
 typedef struct		s_file
 {
 	char			*name;
-	char			*path;
 	char			perm[11];
 	char			*usr;
 	char			*grp;
 	char			*month;
 	char			*day;
 	char			*hour;
-	struct stat		*st;
+	char			*size;
+	int				major;
+	int				minor;
+	int				nlink;
+	long			mtime;
+	long			nsec;
+	int				mode;
+	size_t			block;
 }					t_file;
 
 typedef struct		s_dir
 {
-	char			flag;
-	char			*name;
+	int				flag;
 	char			*path;
 	t_file			**file;
 }					t_dir;
@@ -44,22 +63,25 @@ typedef struct		s_infolen
 	size_t			size;
 	size_t			day;
 	size_t			hour;
+	size_t			major;
+	size_t			minor;
 }					t_infolen;
 
-int					ft_ls_parser(int ac, char **av, char *flag);
+int					ft_ls_parser(int ac, char **av, int *flag);
 int					ft_ls_check_path(char *path);
 void				ft_ls_error(int err_flag, char *str);
-void				ft_ls_sort(t_finfo **file_tab, char flag);
-void				ft_ls_sort_arg(t_finfo **file_tab);
-void				ft_ls_recursion(t_finfo **file_tab, char flag);
-void				ft_ls_del_finfo(t_finfo **file);
-void				ft_ls_delall_finfo(t_finfo **file);
-void				ft_ls_display_switch(char *path, char flag);
-void				ft_ls_display_file(t_finfo *file, char flag, t_flagl *len);
+void				ft_ls_sort(t_file **tab, int flag);
+void				ft_ls_sort_arg(t_file **tab);
+void				ft_ls_recursion(t_dir *dir);
+void				ft_ls_del_file(t_file *file);
+void				ft_ls_del_dir(t_dir *dir);
+void				ft_ls_display_switch(t_dir *dir);
 void				ft_ls_get_permission(long mode, char *perm);
-void				ft_ls_l_infolen(t_finfo **file_tab, t_flagl *infolen);
+void				ft_ls_get_infolen(t_file **tab, t_infolen *infolen);
+char				*ft_ls_getname_inpath(char *path);
+t_dir				*ft_ls_get_dir(int flag, char *path, t_file **tab);
+t_file				*ft_ls_get_file(int flag, char *path);
 size_t				ft_countfindir(char *path);
-t_finfo				*ft_ls_new_finfo(struct dirent *file, char *path);
 
 
 #endif

@@ -1,33 +1,41 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_ls_recursion.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/08/21 02:42:55 by vsporer           #+#    #+#             */
+/*   Updated: 2017/08/21 02:45:07 by vsporer          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_ls.h"
 
-void	ft_ls_recursion(t_finfo **file_tab, char flag)
+void	ft_ls_recursion(t_dir *dir)
 {
 	int		i;
 	char	*path;
+	t_file	**tab;
 
 	i = 0;
-	while (file_tab[i])
+	tab = dir->file;
+	while (tab[i])
 	{
-		path = (file_tab[i])->path;
-		if (S_ISDIR((file_tab[i])->file->st_mode))
+		path = dir->path;
+		if (S_ISDIR((tab[i])->mode))
 		{
-			if (ft_strcmp((file_tab[i])->name, ".") && \
-			ft_strcmp((file_tab[i])->name, ".."))
+			if (ft_strcmp((tab[i])->name, ".") && \
+			ft_strcmp((tab[i])->name, ".."))
 			{
-				if (path[ft_strlen(path) - 1] == '/')
-				{
-					path = ft_strjoin_free(path, \
-					ft_strjoin((file_tab[i])->name, "/"), 2);
-				}
-				else
-					path = ft_strjoin_free(ft_strjoin(path, "/"), \
-					ft_strjoin((file_tab[i])->name, "/"), 3);
-				ft_ls_display_switch(path, flag);
+				path = ft_strjoin_free(ft_strjoin(path, "/"), \
+				(tab[i])->name, 1);
+				ft_ls_display_switch(ft_ls_get_dir(dir->flag, path, NULL));
 				if (path)
 					ft_strdel(&path);
 			}
 		}
-		ft_ls_del_finfo(&(file_tab[i]));
+		ft_ls_del_file(tab[i]);
 		i++;
 	}
 }

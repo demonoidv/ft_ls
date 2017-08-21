@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_ls_tools.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/08/20 15:17:03 by vsporer           #+#    #+#             */
+/*   Updated: 2017/08/21 02:56:11 by vsporer          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_ls.h"
 
 int		ft_ls_check_path(char *path)
@@ -32,12 +44,11 @@ size_t	ft_countfindir(char *path)
 {
 	int				i;
 	DIR				*dir;
-	struct dirent	*file;
 
 	i = 0;
 	if (path && (dir = opendir(path)))
 	{
-		while ((file = readdir(dir)))
+		while (readdir(dir))
 			i++;
 		closedir(dir);
 		return (i);
@@ -50,4 +61,18 @@ size_t	ft_countfindir(char *path)
 		ft_ls_error(errno, (path + i));
 	}
 	return (0);
+}
+
+char	*ft_ls_getname_inpath(char *path)
+{
+	int		i;
+	int		end;
+
+	i = (ft_strlen(path) - 1);
+	end = path[i] == '/' ? (i - 1) : i;
+	while (i >= 0 && path[i] != '/')
+		i--;
+	if (path[i] == '/')
+		i++;
+	return (ft_strsub(path, i, ((end - i) + 1)));
 }
