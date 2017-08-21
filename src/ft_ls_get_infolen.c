@@ -6,7 +6,7 @@
 /*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 17:52:42 by vsporer           #+#    #+#             */
-/*   Updated: 2017/08/21 02:50:25 by vsporer          ###   ########.fr       */
+/*   Updated: 2017/08/21 22:15:42 by demodev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void		ft_ls_get_infolen(t_file **tab, t_infolen *infolen)
 
 	i = 0;
 	infolen_init(infolen);
-	while (i != -1 && tab[i])
+	while (tab[i])
 	{
 		if ((res = ft_nbrlen((tab[i])->nlink)) > infolen->lnk)
 			infolen->lnk = res;
@@ -51,5 +51,6 @@ void		ft_ls_get_infolen(t_file **tab, t_infolen *infolen)
 			infolen->size = res;
 		if ((res = ft_strlen((tab[i])->size)) > infolen->size)
 			infolen->size = res;
+		i++;
 	}
 }

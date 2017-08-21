@@ -6,7 +6,7 @@
 /*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/21 02:42:55 by vsporer           #+#    #+#             */
-/*   Updated: 2017/08/21 02:45:07 by vsporer          ###   ########.fr       */
+/*   Updated: 2017/08/21 14:03:09 by demodev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,14 @@ void	ft_ls_recursion(t_dir *dir)
 			if (ft_strcmp((tab[i])->name, ".") && \
 			ft_strcmp((tab[i])->name, ".."))
 			{
-				path = ft_strjoin_free(ft_strjoin(path, "/"), \
-				(tab[i])->name, 1);
+				path = (path) ? ft_strjoin_free(ft_strjoin(path, "/"), \
+				(tab[i])->name, 1) : ft_strdup((tab[i])->name);
 				ft_ls_display_switch(ft_ls_get_dir(dir->flag, path, NULL));
 				if (path)
 					ft_strdel(&path);
 			}
 		}
-		ft_ls_del_file(tab[i]);
+		ft_ls_del_file(&tab[i]);
 		i++;
 	}
 }

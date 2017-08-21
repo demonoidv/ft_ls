@@ -6,7 +6,7 @@
 /*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 14:13:25 by vsporer           #+#    #+#             */
-/*   Updated: 2017/08/21 02:50:20 by vsporer          ###   ########.fr       */
+/*   Updated: 2017/08/21 22:17:04 by demodev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,10 @@ static void		ft_ls_display_file(int flag, t_file *file, t_infolen *len)
 		ft_printf("%-11s %*d %-*s %-*s", file->perm, len->lnk, file->nlink, \
 		len->usr + 1, file->usr, len->grp + 1, file->grp);
 		if (file->major)
-			ft_printf("%*d, %*d", len->major, file->major, len->minor, \
+			ft_printf("%*d, %*d ", len->major, file->major, len->minor, \
 			file->minor);
 		else
-			ft_printf("%*s", len->size, file->size);
+			ft_printf("%*s ", len->size, file->size);
 		ft_printf("%s %*s %*s %s\n", file->month, len->day, file->day, \
 		len->hour, file->hour, file->name);
 	}
@@ -56,12 +56,14 @@ static void		print_info_dir(t_dir *dir)
 	size_t	nbbloc;
 	size_t	lenpath;
 
-	lenpath = ft_strlen(dir->path);
-	if (dir->path)
+	if (!ISARGFILE(dir->flag) && dir->path)
 	{
+		lenpath = ft_strlen(dir->path);
 		ft_putendl("");
 		ft_printf("%.*s:\n", lenpath, dir->path);
 	}
+	else
+		dir->flag = (dir->flag ^ 32);
 	if ((nbbloc = count_bloc(dir, dir->flag)) && FLAG_L_LOW(dir->flag))
 		ft_printf("total %u\n", nbbloc);
 }
@@ -101,6 +103,7 @@ void			ft_ls_display_switch(t_dir *dir)
 		display_dir(dir);
 		if (FLAG_R_UP(dir->flag))
 			ft_ls_recursion(dir);
-		ft_ls_del_dir(dir);
+		if (dir)
+			ft_ls_del_dir(dir);
 	}
 }

@@ -6,17 +6,20 @@
 /*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/21 00:04:24 by vsporer           #+#    #+#             */
-/*   Updated: 2017/08/21 02:46:12 by vsporer          ###   ########.fr       */
+/*   Updated: 2017/08/21 15:24:47 by demodev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void		ft_ls_del_file(t_file *file)
+void		ft_ls_del_file(t_file **todel)
 {
+	t_file	*file;
+
+	file = *todel;
 	if (file->name)
 		ft_strdel(&(file->name));
-	ft_bzero(file->perm, 11);
+	ft_bzero(file->perm, 10);
 	if (file->usr)
 		ft_strdel(&(file->usr));
 	if (file->grp)
@@ -29,6 +32,8 @@ void		ft_ls_del_file(t_file *file)
 		ft_strdel(&(file->hour));
 	if (file->size)
 		ft_strdel(&(file->size));
+/*	free(todel);
+	todel = NULL;*/
 }
 
 void		ft_ls_del_dir(t_dir *dir)
@@ -42,13 +47,15 @@ void		ft_ls_del_dir(t_dir *dir)
 		tab = dir->file;
 		while (tab[i])
 		{
-			ft_ls_del_file(tab[i]);
+			ft_ls_del_file(&(tab[i]));
 			i++;
 		}
-		if (dir->file)
-			free(dir->file);
+		if (tab)
+			free(tab);
 		if (dir->path)
 			ft_strdel(&(dir->path));
-		free(&dir);
+/*		if (dir)
+			free(&dir);
+		dir = NULL;*/
 	}
 }

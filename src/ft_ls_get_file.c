@@ -6,7 +6,7 @@
 /*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 14:37:57 by vsporer           #+#    #+#             */
-/*   Updated: 2017/08/21 02:55:35 by vsporer          ###   ########.fr       */
+/*   Updated: 2017/08/21 22:40:55 by demodev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <pwd.h>
 #include <grp.h>
 
-static void		get_slink_major_minor(struct stat st, t_file *file, char *path)
+static void		get_slink_major_minor(t_file *file, char *path)
 {
 	int		i;
 	char	*res;
@@ -34,10 +34,10 @@ static void		get_slink_major_minor(struct stat st, t_file *file, char *path)
 		file->major = 0;
 		file->minor = 0;
 	}
-	else if (S_ISCHR(file->mode) || S_ISBLK(file->mode))
+	else if (file->dev)
 	{
-		file->major = MAJOR(st.st_dev);
-		file->minor = MINOR(st.st_dev);
+		file->minor = MINOR(file->dev);
+		file->major = MAJOR(file->dev);
 	}
 }
 
@@ -86,17 +86,17 @@ static void		get_mtime(time_t t, t_file *file)
 	}
 }
 
-static t_file	*load_file_info(int flag, struct stat st, t_file *file)
+static t_file	*load_file_info(int flag, struct stat *st, t_file *file)
 {
-	file->mtime = st.st_mtime;
-	file->nsec = st.st_mtimespec.tv_nsec;
-	file->mode = st.st_mode;
+	file->mtime = st->st_mtime;
+	file->nsec = st->st_mtimespec.tv_nsec;
+	file->mode = st->st_mode;
 	if (FLAG_L_LOW(flag))
 	{
-		ft_ls_get_permission(st.st_mode, file->perm);
-		get_usr_grp_name(&st, file);
-		file->nlink = st.st_nlink;
-		file->size = ft_ulltoa_base(st.st_size, 10);
+		ft_ls_get_permission(st->st_mode, file->perm);
+		get_usr_grp_name(st, file);
+		file->nlink = st->st_nlink;
+		file->size = ft_ulltoa_base(st->st_size, 10);
 		get_mtime(file->mtime, file);
 	}
 	else
@@ -123,12 +123,18 @@ t_file			*ft_ls_get_file(int flag, char *path)
 	{
 		if (!lstat(path, &st))
 		{
-			file->name = ft_ls_getname_inpath(path);
-			file = load_file_info(flag, st, file);
+			if (ISARGFILE(flag))
+				file->name = path;
+			else
+				file->name = ft_ls_getname_inpath(path);
+			file = load_file_info(flag, &st, file);
 			file->block = st.st_blocks;
+			file->dev = (S_ISCHR(file->mode) || S_ISBLK(file->mode)) ? \
+			st.st_rdev : 0;
 			if (FLAG_L_LOW(flag))
-				get_slink_major_minor(st, file, path);
-			ft_strdel(&path);
+				get_slink_major_minor(file, path);
+/*			if (path)
+				ft_strdel(&path);*/
 			return (file);
 		}
 		free(&file);

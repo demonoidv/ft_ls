@@ -6,7 +6,7 @@
 #    By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/08/20 14:41:19 by vsporer           #+#    #+#              #
-#    Updated: 2017/08/21 02:47:47 by vsporer          ###   ########.fr        #
+#    Updated: 2017/08/21 22:47:42 by demodev          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,6 +66,6 @@ re: fclean all
 test: all
 	@echo "##########Start Test##########"
 	@echo ""
-	./$(NAME)
+	./$(NAME) -R
 	@echo ""
 	@echo "###########End Test###########"

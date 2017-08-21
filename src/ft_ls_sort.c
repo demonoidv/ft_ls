@@ -17,7 +17,7 @@ static void		sort_base(t_file **tab)
 				ft_swap((void**)&(tab[i]), (void**)&(tab[i + 1]));
 				j = 1;
 			}
-			i++;
+		i++;
 		}
 	}
 }
@@ -72,28 +72,40 @@ void			ft_ls_sort_arg(t_file **tab)
 	int		j;
 
 	j = 1;
-	while (j)
+	if (!tab[2])
 	{
-		j = 0;
-		i = 0;
-		while (tab[i + 1])
+		if (S_ISDIR((tab[0])->mode) && \
+		!S_ISDIR((tab[1])->mode))
+			ft_swap((void**)&(tab[0]), (void**)&(tab[1]));
+	}
+	else
+	{
+		while (j)
 		{
-			if (S_ISDIR((tab[i])->mode) && \
-			!S_ISDIR((tab[i + 1])->mode))
+			j = 0;
+			i = 0;
+			while (tab[i + 1])
 			{
-				ft_swap((void**)&(tab[i]), (void**)&(tab[i + 1]));
-				j = 1;
+				if (S_ISDIR((tab[i])->mode) && \
+				!S_ISDIR((tab[i + 1])->mode))
+				{
+					ft_swap((void**)&(tab[i]), (void**)&(tab[i + 1]));
+					j = 1;
+				}
+				i++;
 			}
-			i++;
 		}
 	}
 }
 
 void			ft_ls_sort(t_file **tab,  int flag)
 {
+	if (tab[1])
+	{
 		sort_base(tab);
 		if ((FLAG_T_LOW(flag)))
 			sort_t(tab);
 		if ((FLAG_R_LOW(flag)))
 			sort_r(tab);
+	}
 }

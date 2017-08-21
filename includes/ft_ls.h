@@ -6,7 +6,7 @@
 /*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 14:24:18 by vsporer           #+#    #+#             */
-/*   Updated: 2017/08/21 02:42:38 by demodev          ###   ########.fr       */
+/*   Updated: 2017/08/21 22:33:36 by demodev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # define FLAG_A_LOW(n) (n & 4)
 # define FLAG_R_LOW(n) (n & 8)
 # define FLAG_T_LOW(n) (n & 16)
+# define ISARGFILE(n) (n & 32)
 # define MAJOR(dev) ((dev >> 24) & 0xff)
 # define MINOR(dev) (dev & 0xffffff)
 # define USAGE "usage: ft_ls [-Ralrt] [file ...]"
@@ -46,6 +47,7 @@ typedef struct		s_file
 	long			nsec;
 	int				mode;
 	size_t			block;
+	dev_t			dev;
 }					t_file;
 
 typedef struct		s_dir
@@ -73,7 +75,7 @@ void				ft_ls_error(int err_flag, char *str);
 void				ft_ls_sort(t_file **tab, int flag);
 void				ft_ls_sort_arg(t_file **tab);
 void				ft_ls_recursion(t_dir *dir);
-void				ft_ls_del_file(t_file *file);
+void				ft_ls_del_file(t_file **file);
 void				ft_ls_del_dir(t_dir *dir);
 void				ft_ls_display_switch(t_dir *dir);
 void				ft_ls_get_permission(long mode, char *perm);
