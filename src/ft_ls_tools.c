@@ -6,7 +6,7 @@
 /*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 15:17:03 by vsporer           #+#    #+#             */
-/*   Updated: 2017/08/21 02:56:11 by vsporer          ###   ########.fr       */
+/*   Updated: 2017/08/25 13:20:57 by demodev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,13 @@ size_t	ft_countfindir(char *path)
 		closedir(dir);
 		return (i);
 	}
-	else if (path)
+/*	else if (path)
 	{
 		i = ft_strlen(path) - 1;
 		while (&(path[i]) != path && path[i - 1] != '/')
 			i--;
 		ft_ls_error(errno, (path + i));
-	}
+	}*/
 	return (0);
 }
 

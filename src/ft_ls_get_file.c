@@ -6,7 +6,7 @@
 /*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 14:37:57 by vsporer           #+#    #+#             */
-/*   Updated: 2017/08/21 22:40:55 by demodev          ###   ########.fr       */
+/*   Updated: 2017/08/25 12:02:13 by demodev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void		get_slink_major_minor(t_file *file, char *path)
 		file->major = 0;
 		file->minor = 0;
 	}
-	else if (file->dev)
+	else if (file->dev && (file->perm[0] == 'b' || file->perm[0] == 'c'))
 	{
 		file->minor = MINOR(file->dev);
 		file->major = MAJOR(file->dev);
@@ -48,20 +48,17 @@ static void		get_usr_grp_name(struct stat *st, t_file *file)
 
 	errno = 0;
 	if ((pw = getpwuid(st->st_uid)))
-	{
 		file->usr = ft_strdup(pw->pw_name);
-		if ((grp = getgrgid(pw->pw_gid)))
-			file->grp = ft_strdup(grp->gr_name);
-		else if (!errno)
-			file->grp = ft_itoa(st->st_gid);
-	}
 	else if (errno)
 		ft_ls_error(errno, NULL);
 	else
-	{
 		file->usr = ft_itoa(st->st_uid);
+	if ((grp = getgrgid(st->st_gid)))
+			file->grp = ft_strdup(grp->gr_name);
+	else if (errno)
+		ft_ls_error(errno, NULL);
+	else
 		file->grp = ft_itoa(st->st_gid);
-	}
 }
 
 static void		get_mtime(time_t t, t_file *file)
@@ -127,14 +124,12 @@ t_file			*ft_ls_get_file(int flag, char *path)
 				file->name = path;
 			else
 				file->name = ft_ls_getname_inpath(path);
+			file->dev = (S_ISCHR(st.st_mode) || S_ISBLK(st.st_mode)) ? \
+			st.st_rdev : 0;
 			file = load_file_info(flag, &st, file);
 			file->block = st.st_blocks;
-			file->dev = (S_ISCHR(file->mode) || S_ISBLK(file->mode)) ? \
-			st.st_rdev : 0;
 			if (FLAG_L_LOW(flag))
 				get_slink_major_minor(file, path);
-/*			if (path)
-				ft_strdel(&path);*/
 			return (file);
 		}
 		free(&file);

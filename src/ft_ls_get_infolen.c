@@ -6,7 +6,7 @@
 /*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 17:52:42 by vsporer           #+#    #+#             */
-/*   Updated: 2017/08/21 22:15:42 by demodev          ###   ########.fr       */
+/*   Updated: 2017/08/25 11:43:41 by demodev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,14 @@ void		ft_ls_get_infolen(t_file **tab, t_infolen *infolen)
 			infolen->day = res;
 		if ((res = ft_strlen((tab[i])->hour)) > infolen->hour)
 			infolen->hour = res;
-		if ((res = ft_nbrlen((tab[i])->major)) > infolen->major)
+		if ((res = ft_nbrlen((tab[i])->major)) > infolen->major && \
+		((tab[i])->perm[0] == 'c' || (tab[i])->perm[0] == 'b'))
 			infolen->major = res;
-		if ((res = ft_nbrlen((tab[i])->minor)) > infolen->minor)
+		if ((res = ft_nbrlen((tab[i])->minor)) > infolen->minor && \
+		((tab[i])->perm[0] == 'c' || (tab[i])->perm[0] == 'b'))
 			infolen->minor = res;
-		if ((res = (infolen->major + infolen->minor + 2)) > infolen->size)
+		if ((res = (infolen->major + infolen->minor + 2)) > infolen->size && \
+		((tab[i])->perm[0] == 'c' || (tab[i])->perm[0] == 'b'))
 			infolen->size = res;
 		if ((res = ft_strlen((tab[i])->size)) > infolen->size)
 			infolen->size = res;

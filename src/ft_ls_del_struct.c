@@ -6,7 +6,7 @@
 /*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/21 00:04:24 by vsporer           #+#    #+#             */
-/*   Updated: 2017/08/21 15:24:47 by demodev          ###   ########.fr       */
+/*   Updated: 2017/08/25 12:46:07 by demodev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,12 @@ void		ft_ls_del_dir(t_dir *dir)
 	if (dir)
 	{
 		tab = dir->file;
-		while (tab[i])
-		{
-			ft_ls_del_file(&(tab[i]));
-			i++;
-		}
+		if (tab)
+			while (tab[i])
+			{
+				ft_ls_del_file(&(tab[i]));
+				i++;
+			}
 		if (tab)
 			free(tab);
 		if (dir->path)

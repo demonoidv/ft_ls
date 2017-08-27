@@ -6,7 +6,7 @@
 /*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 14:24:18 by vsporer           #+#    #+#             */
-/*   Updated: 2017/08/21 22:33:36 by demodev          ###   ########.fr       */
+/*   Updated: 2017/08/25 12:50:42 by demodev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct		s_file
 typedef struct		s_dir
 {
 	int				flag;
+	int				perm_den;
 	char			*path;
 	t_file			**file;
 }					t_dir;
