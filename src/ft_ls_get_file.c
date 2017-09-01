@@ -6,7 +6,7 @@
 /*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 14:37:57 by vsporer           #+#    #+#             */
-/*   Updated: 2017/08/25 12:02:13 by demodev          ###   ########.fr       */
+/*   Updated: 2017/09/01 19:53:41 by demodev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ t_file			*ft_ls_get_file(int flag, char *path)
 				get_slink_major_minor(file, path);
 			return (file);
 		}
-		free(&file);
+		ft_memdel((void**)&file);
 		file = NULL;
 	}
 	return (file);

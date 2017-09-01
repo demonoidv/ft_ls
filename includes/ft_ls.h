@@ -6,7 +6,7 @@
 /*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 14:24:18 by vsporer           #+#    #+#             */
-/*   Updated: 2017/08/25 12:50:42 by demodev          ###   ########.fr       */
+/*   Updated: 2017/09/01 18:25:21 by demodev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 # define FLAG_R_LOW(n) (n & 8)
 # define FLAG_T_LOW(n) (n & 16)
 # define ISARGFILE(n) (n & 32)
+# define ISFIRST(n) (n & 64)
+# define ISFILE(n) (n & 128)
 # define MAJOR(dev) ((dev >> 24) & 0xff)
 # define MINOR(dev) (dev & 0xffffff)
 # define USAGE "usage: ft_ls [-Ralrt] [file ...]"

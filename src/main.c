@@ -6,7 +6,7 @@
 /*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/21 02:20:02 by vsporer           #+#    #+#             */
-/*   Updated: 2017/08/25 13:23:26 by demodev          ###   ########.fr       */
+/*   Updated: 2017/09/01 19:42:01 by demodev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,17 +56,18 @@ static int		display_arg(t_file **tab, int flag)
 	dir = tab_file_to_dir(tab, flag);
 	if (dir)
 	{
-		dir->flag = (dir->flag | 32);
+		dir->flag = (dir->flag | 160);
 		ft_ls_display_switch(dir);
 	}
 	while (tab[i])
 	{
-		if (dir && i == 0 && !tab[i + 1])
-			dir = ft_ls_get_dir((flag | 32), ft_strdup((tab[i])->name), NULL);
-		else
-			dir = ft_ls_get_dir(flag, ft_strdup((tab[i])->name), NULL);
+		dir = ft_ls_get_dir(flag, ft_strdup((tab[i])->name), NULL);
 		if (dir->perm_den)
 			perm_den = dir->perm_den;
+		if (dir && i == 0 && !tab[i + 1])
+			dir->flag = (dir->flag | 32);
+		if (dir && i == 0)
+			dir->flag = (dir->flag | 64);
 		ft_ls_display_switch(dir);
 		ft_ls_del_file(&(tab[i]));
 		i++;
@@ -94,9 +95,7 @@ int				main(int ac, char **av)
 			while (pos < ac)
 			{
 				if ((tab[i] = ft_ls_get_file((flag | 32), ft_strdup(av[pos]))))
-				{
 					i++;
-				}
 				pos++;
 			}
 			if (i > 1)
@@ -106,6 +105,7 @@ int				main(int ac, char **av)
 		return (1);
 	}
 	dir = ft_ls_get_dir(flag, ft_strdup("."), NULL);
+	dir->flag = (flag | 32);
 	ft_ls_display_switch(dir);
 	return (0);
 }

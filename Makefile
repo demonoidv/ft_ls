@@ -6,7 +6,7 @@
 #    By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/08/20 14:41:19 by vsporer           #+#    #+#              #
-#    Updated: 2017/08/25 12:37:35 by demodev          ###   ########.fr        #
+#    Updated: 2017/09/01 19:45:04 by demodev          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,6 +66,6 @@ re: fclean all
 test: all
 	@echo "##########Start Test##########"
 	@echo ""
-	./$(NAME) ft_ls.dSYM
+	./$(NAME) -Rl dsfg aasdf
 	@echo ""
 	@echo "###########End Test###########"

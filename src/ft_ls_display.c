@@ -6,7 +6,7 @@
 /*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 14:13:25 by vsporer           #+#    #+#             */
-/*   Updated: 2017/08/25 23:47:54 by demodev          ###   ########.fr       */
+/*   Updated: 2017/09/01 19:26:03 by demodev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,22 +55,21 @@ static void		print_info_dir(t_dir *dir)
 {
 	size_t	lenpath;
 
-		ft_putendl(dir->path);
-	if (!dir->perm_den)
+	if (!ISARGFILE(dir->flag) && dir->path)
 	{
-		if (!ISARGFILE(dir->flag) && dir->path)
-		{
-			lenpath = ft_strlen(dir->path);
-			ft_putendl("");
-			ft_printf("%.*s:\n", lenpath, dir->path);
-		}
-		else
-			dir->flag = (dir->flag ^ 32);
-		if (FLAG_L_LOW(dir->flag))
-			ft_printf("total %u\n", count_bloc(dir, dir->flag));
+		lenpath = ft_strlen(dir->path);
+		if (!ISFIRST(dir->flag))
+		ft_putendl("");
+		ft_printf("%.*s:\n", lenpath, dir->path);
+		if (dir->perm_den)
+			ft_ls_error(errno, ft_ls_getname_inpath(dir->path));
 	}
-	else
-		ft_ls_error(errno, ft_ls_getname_inpath(dir->path));
+	else if (ISARGFILE(dir->flag))
+		dir->flag = (dir->flag ^ 32);
+	if (FLAG_L_LOW(dir->flag) && !ISFILE(dir->flag) && !dir->perm_den)
+		ft_printf("total %u\n", count_bloc(dir, dir->flag));
+	else if (ISFILE(dir->flag))
+		dir->flag = (dir->flag ^ 128);
 }
 
 static void		display_dir(t_dir *dir)
@@ -82,7 +81,7 @@ static void		display_dir(t_dir *dir)
 	i = 0;
 	tab = dir->file;
 	print_info_dir(dir);
-	if (tab)
+	if (tab && !dir->perm_den)
 	{
 		if (FLAG_L_LOW(dir->flag))
 			ft_ls_get_infolen(tab, &len);
@@ -108,7 +107,11 @@ void			ft_ls_display_switch(t_dir *dir)
 			ft_ls_sort(dir->file, dir->flag);
 		display_dir(dir);
 		if (FLAG_R_UP(dir->flag) && !dir->perm_den)
+		{
+			if (ISFIRST(dir->flag))
+				dir->flag = (dir->flag ^ 64);
 			ft_ls_recursion(dir);
+		}
 		if (dir)
 			ft_ls_del_dir(dir);
 	}
