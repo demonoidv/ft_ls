@@ -6,7 +6,7 @@
 /*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 14:37:57 by vsporer           #+#    #+#             */
-/*   Updated: 2017/09/01 19:53:41 by demodev          ###   ########.fr       */
+/*   Updated: 2017/09/05 20:57:05 by demodev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 static void		get_slink_major_minor(t_file *file, char *path)
 {
 	int		i;
-	char	*res;
 	char	lnk[256];
 
 	if (S_ISLNK(file->mode))
@@ -27,9 +26,8 @@ static void		get_slink_major_minor(t_file *file, char *path)
 		else
 		{
 			lnk[i] = '\0';
-			ft_asprintf(&res, "%s -> %s", file->name, lnk);
-			ft_strdel(&file->name);
-			file->name = res;
+			file->name = ft_strjoin_free(file->name, ft_strjoin(" -> ", lnk), \
+			3);
 		}
 		file->major = 0;
 		file->minor = 0;

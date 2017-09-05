@@ -14,7 +14,7 @@ static void		sort_base(t_file **tab)
 		{
 			if (ft_strcmp((tab[i])->name, (tab[i + 1])->name) > 0)
 			{
-				ft_swap((void**)&(tab[i]), (void**)&(tab[i + 1]));
+				ft_swap_ptr((void**)&(tab[i]), (void**)&(tab[i + 1]));
 				j = 1;
 			}
 		i++;
@@ -40,7 +40,7 @@ static void		sort_t(t_file **tab)
 			if (mtime1 < mtime2 || (mtime1 == mtime2 && (tab[i])->nsec < \
 			(tab[i + 1])->nsec))
 			{
-				ft_swap((void**)&(tab[i]), (void**)&(tab[i + 1]));
+				ft_swap_ptr((void**)&(tab[i]), (void**)&(tab[i + 1]));
 				j = 1;
 			}
 			i++;
@@ -60,7 +60,7 @@ static void		sort_r(t_file **tab)
 	j--;
 	while (i < j)
 	{
-		ft_swap((void**)&tab[i], (void**)&tab[j]);
+		ft_swap_ptr((void**)&tab[i], (void**)&tab[j]);
 		i++;
 		j--;
 	}
@@ -76,7 +76,7 @@ void			ft_ls_sort_arg(t_file **tab)
 	{
 		if (S_ISDIR((tab[0])->mode) && \
 		!S_ISDIR((tab[1])->mode))
-			ft_swap((void**)&(tab[0]), (void**)&(tab[1]));
+			ft_swap_ptr((void**)&(tab[0]), (void**)&(tab[1]));
 	}
 	else
 	{
@@ -89,7 +89,7 @@ void			ft_ls_sort_arg(t_file **tab)
 				if (S_ISDIR((tab[i])->mode) && \
 				!S_ISDIR((tab[i + 1])->mode))
 				{
-					ft_swap((void**)&(tab[i]), (void**)&(tab[i + 1]));
+					ft_swap_ptr((void**)&(tab[i]), (void**)&(tab[i + 1]));
 					j = 1;
 				}
 				i++;
