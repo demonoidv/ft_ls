@@ -6,7 +6,7 @@
 /*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/21 02:20:02 by vsporer           #+#    #+#             */
-/*   Updated: 2017/09/01 19:42:01 by demodev          ###   ########.fr       */
+/*   Updated: 2017/09/06 17:35:40 by vsporer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static t_dir	*tab_file_to_dir(t_file **tab, int flag)
 				}
 				file[i] = NULL;
 			}
-			dir = ft_ls_get_dir(flag, (tab[i])->name, file);
+			dir = ft_ls_get_dir(flag, NULL, file);
 		}
 	}
 	return (dir);

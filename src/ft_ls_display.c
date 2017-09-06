@@ -6,7 +6,7 @@
 /*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 14:13:25 by vsporer           #+#    #+#             */
-/*   Updated: 2017/09/01 19:26:03 by demodev          ###   ########.fr       */
+/*   Updated: 2017/09/06 17:35:42 by vsporer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ static void		ft_ls_display_file(int flag, t_file *file, t_infolen *len)
 			ft_printf("%*d, %*d ", len->major, file->major, len->minor, \
 			file->minor);
 		else
-			ft_printf("%*s ", len->size, file->size);
-		ft_printf("%s %*s %*s %s\n", file->month, len->day, file->day, \
+			ft_printf("%*s ", len->size + 1, file->size);
+		ft_printf("%s %*s %*s %s\n", file->month, 2, file->day, \
 		len->hour, file->hour, file->name);
 	}
 }

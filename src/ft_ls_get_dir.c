@@ -6,7 +6,7 @@
 /*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 14:23:52 by vsporer           #+#    #+#             */
-/*   Updated: 2017/08/25 12:54:19 by demodev          ###   ########.fr       */
+/*   Updated: 2017/09/06 17:31:41 by vsporer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,19 @@ t_dir		*ft_ls_get_dir(int flag, char *path, t_file **tab)
 	t_dir	*dir;
 	size_t	lenp;
 
-	lenp = path[(lenp = (ft_strlen(path) - 1))] == '/' ? lenp : (lenp + 1);
 	dir = (t_dir*)malloc(sizeof(t_dir));
 	if (dir)
 	{
+		if (path)
+		{
+			lenp = path[(lenp = (ft_strlen(path) - 1))] == '/' ? lenp : \
+			(lenp + 1);
+			dir->path = ft_strsub(path, 0, lenp);
+		}
+		else
+			dir->path = NULL;
 		dir->perm_den = 0;
 		dir->flag = flag;
-		dir->path = ft_strsub(path, 0, lenp);
 		if (tab)
 			dir->file = tab;
 		else
