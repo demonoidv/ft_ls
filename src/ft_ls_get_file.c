@@ -6,7 +6,7 @@
 /*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 14:37:57 by vsporer           #+#    #+#             */
-/*   Updated: 2017/09/09 04:21:53 by vsporer          ###   ########.fr       */
+/*   Updated: 2017/09/09 05:39:10 by vsporer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void		get_slink_major_minor(t_file *file, char *path)
 
 	if (S_ISLNK(file->mode))
 	{
-		if ((i = readlink(path, lnk, 256)) == -1)
+		if ((i = readlink(path, lnk, 1000)) == -1)
 			ft_ls_error(errno, file->name);
 		else
 		{
@@ -127,7 +127,7 @@ t_file			*ft_ls_get_file(int flag, char *path)
 		if (!lstat(path, &st))
 		{
 			if (ISARGFILE(flag))
-				file->name = path;
+				file->name = ft_strdup(path);
 			else
 				file->name = ft_ls_getname_inpath(path);
 			file->dev = (S_ISCHR(st.st_mode) || S_ISBLK(st.st_mode)) ? \
@@ -138,9 +138,11 @@ t_file			*ft_ls_get_file(int flag, char *path)
 			file->err = 0;
 			if (FLAG_L_LOW(flag))
 				get_slink_major_minor(file, path);
+			ft_strdel(&path);
 			return (file);
 		}
 		file->name = ft_ls_getname_inpath(path);
+		ft_strdel(&path);
 		file->perm_den = errno;
 	}
 	return (file);

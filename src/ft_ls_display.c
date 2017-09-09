@@ -6,7 +6,7 @@
 /*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 14:13:25 by vsporer           #+#    #+#             */
-/*   Updated: 2017/09/09 04:16:58 by vsporer          ###   ########.fr       */
+/*   Updated: 2017/09/09 05:18:10 by vsporer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ static int		check_hfile(t_file **tab, int flag)
 static void		print_info_dir(t_dir *dir)
 {
 	size_t	lenpath;
+	char	*tmp;
 	int		i;
 
 	i = 0;
@@ -101,7 +102,11 @@ static void		print_info_dir(t_dir *dir)
 	if (dir->perm_den)
 	{
 		if (dir->path)
-			ft_ls_error(dir->perm_den, ft_ls_getname_inpath(dir->path));
+		{
+			tmp = ft_ls_getname_inpath(dir->path);
+			ft_ls_error(dir->perm_den, tmp);
+			ft_strdel(&tmp);
+		}
 		ft_memdel((void**)dir->file);
 	}
 }
@@ -143,7 +148,6 @@ void			ft_ls_display_switch(t_dir *dir)
 				dir->flag = (dir->flag ^ 64);
 			ft_ls_recursion(dir);
 		}
-		if (dir)
-			ft_ls_del_dir(dir);
+		ft_ls_del_dir(dir);
 	}
 }

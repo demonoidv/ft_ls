@@ -6,7 +6,7 @@
 /*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/21 02:20:02 by vsporer           #+#    #+#             */
-/*   Updated: 2017/09/09 03:27:23 by vsporer          ###   ########.fr       */
+/*   Updated: 2017/09/09 05:26:05 by vsporer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ int				main(int ac, char **av)
 {
 	int		pos;
 	int		flag;
+	char	*tmp;
 	t_dir	*dir;
 	t_file	**tab;
 
@@ -129,7 +130,9 @@ int				main(int ac, char **av)
 		}
 		return (1);
 	}
-	dir = ft_ls_get_dir(flag, ft_strdup("."), NULL);
+	tmp = ft_strdup(".");
+	dir = ft_ls_get_dir(flag, tmp, NULL);
+	ft_strdel(&tmp);
 	dir->flag = (flag | 32);
 	ft_ls_display_switch(dir);
 	return (0);
