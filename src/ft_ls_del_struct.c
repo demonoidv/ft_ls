@@ -6,7 +6,7 @@
 /*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/21 00:04:24 by vsporer           #+#    #+#             */
-/*   Updated: 2017/08/25 12:46:07 by demodev          ###   ########.fr       */
+/*   Updated: 2017/09/08 23:58:07 by vsporer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,24 +16,18 @@ void		ft_ls_del_file(t_file **todel)
 {
 	t_file	*file;
 
-	file = *todel;
-	if (file->name)
+	if ((file = *todel))
+	{
 		ft_strdel(&(file->name));
-	ft_bzero(file->perm, 10);
-	if (file->usr)
+		ft_bzero(file->perm, 10);
 		ft_strdel(&(file->usr));
-	if (file->grp)
 		ft_strdel(&(file->grp));
-	if (file->month)
 		ft_strdel(&(file->month));
-	if (file->day)
 		ft_strdel(&(file->day));
-	if (file->hour)
 		ft_strdel(&(file->hour));
-	if (file->size)
 		ft_strdel(&(file->size));
-/*	free(todel);
-	todel = NULL;*/
+		ft_memdel((void**)todel);
+	}
 }
 
 void		ft_ls_del_dir(t_dir *dir)
@@ -51,12 +45,8 @@ void		ft_ls_del_dir(t_dir *dir)
 				ft_ls_del_file(&(tab[i]));
 				i++;
 			}
-		if (tab)
-			free(tab);
-		if (dir->path)
-			ft_strdel(&(dir->path));
-/*		if (dir)
-			free(&dir);
-		dir = NULL;*/
+		ft_memdel((void**)&tab);
+		ft_strdel(&(dir->path));
+		ft_memdel((void**)&dir);
 	}
 }

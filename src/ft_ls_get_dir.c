@@ -6,7 +6,7 @@
 /*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 14:23:52 by vsporer           #+#    #+#             */
-/*   Updated: 2017/09/06 17:31:41 by vsporer          ###   ########.fr       */
+/*   Updated: 2017/09/07 21:47:08 by demodev          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ t_dir		*ft_ls_get_dir(int flag, char *path, t_file **tab)
 	{
 		if (path)
 		{
-			lenp = path[(lenp = (ft_strlen(path) - 1))] == '/' ? lenp : \
-			(lenp + 1);
+			lenp = path[(lenp = (ft_strlen(path) - 1))] == '/' && \
+			ft_strcmp("/", path) ? lenp : (lenp + 1);
 			dir->path = ft_strsub(path, 0, lenp);
 		}
 		else
@@ -59,7 +59,7 @@ t_dir		*ft_ls_get_dir(int flag, char *path, t_file **tab)
 		else
 			create_file_tab(dir);
 		if (!dir->file)
-			dir->perm_den = 1;
+			dir->perm_den = errno;
 	}
 	return (dir);
 }

@@ -6,7 +6,7 @@
 /*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 16:40:06 by vsporer           #+#    #+#             */
-/*   Updated: 2017/08/21 02:27:09 by vsporer          ###   ########.fr       */
+/*   Updated: 2017/09/08 16:54:55 by vsporer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static int	get_flag(char *arg, int *flag)
 	int		i;
 
 	i = 1;
+	if (!ft_strcmp("-", arg) && flag)
+		return (-1);
 	while (arg[i])
 	{
 		if (arg[i] == 'R')
@@ -32,10 +34,32 @@ static int	get_flag(char *arg, int *flag)
 		else if (arg[i] == '1')
 			*flag += 0;
 		else
-			return (arg[i]);
+			return (i);
 		i++;
 	}
 	return (0);
+}
+
+static void	parser_sort(char **args)
+{
+	int		i;
+	int		j;
+
+	j = 1;
+	while (j)
+	{
+		i = 0;
+		j = 0;
+		while (args[i + 1])
+		{
+			if (ft_strcmp(args[i], args[i + 1]) > 0)
+			{
+				ft_swap_ptr((void**)&args[i], (void**)&args[i + 1]);
+				j = 1;
+			}
+		i++;
+		}
+	}
 }
 
 int			ft_ls_parser(int ac, char **av, int *flag)
@@ -45,12 +69,17 @@ int			ft_ls_parser(int ac, char **av, int *flag)
 
 	i = 1;
 	res = 0;
-	while (i < ac && av[i][0] == '-' && !(res = get_flag(av[i], flag)))
+	while (i < ac && av[i][0] == '-' && ft_strcmp("--", av[i]) && \
+	!(res = get_flag(av[i], flag)))
 		i++;
-	if (res)
+	if (res > 0)
 	{
 		ft_ls_error(INVALID_FLAG, &av[i][res]);
 		exit(1);
 	}
+	if (av[i] && !ft_strcmp("--", av[i]))
+		i++;
+	if (av[i] && av[i + 1])
+		parser_sort(&av[i]);
 	return (i);
 }

@@ -6,7 +6,7 @@
 /*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 14:24:18 by vsporer           #+#    #+#             */
-/*   Updated: 2017/09/06 16:08:36 by vsporer          ###   ########.fr       */
+/*   Updated: 2017/09/09 02:51:45 by vsporer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,11 @@
 # define ISFILE(n) (n & 128)
 # define MAJOR(dev) ((dev >> 24) & 0xff)
 # define MINOR(dev) (dev & 0xffffff)
-# define USAGE "usage: ft_ls [-Ralrt] [file ...]"
 
 typedef struct		s_file
 {
 	char			*name;
+	char			*sympath;
 	char			perm[11];
 	char			*usr;
 	char			*grp;
@@ -50,6 +50,8 @@ typedef struct		s_file
 	int				mode;
 	size_t			block;
 	dev_t			dev;
+	int				perm_den;
+	int				err;
 }					t_file;
 
 typedef struct		s_dir
@@ -74,6 +76,7 @@ typedef struct		s_infolen
 
 int					ft_ls_parser(int ac, char **av, int *flag);
 int					ft_ls_check_path(char *path);
+int					ft_ls_symdir(t_file **file, int *error, int flag);
 void				ft_ls_error(int err_flag, char *str);
 void				ft_ls_sort(t_file **tab, int flag);
 void				ft_ls_sort_arg(t_file **tab);
@@ -82,8 +85,10 @@ void				ft_ls_del_file(t_file **file);
 void				ft_ls_del_dir(t_dir *dir);
 void				ft_ls_display_switch(t_dir *dir);
 void				ft_ls_get_permission(long mode, char *perm);
-void				ft_ls_get_infolen(t_file **tab, t_infolen *infolen);
+void				ft_ls_get_infolen(t_file **tab, t_infolen *infolen,\
+					int flag);
 char				*ft_ls_getname_inpath(char *path);
+char				**ft_ls_get_time(time_t t);
 t_dir				*ft_ls_get_dir(int flag, char *path, t_file **tab);
 t_file				*ft_ls_get_file(int flag, char *path);
 size_t				ft_countfindir(char *path);

@@ -6,18 +6,19 @@
 /*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 14:37:57 by vsporer           #+#    #+#             */
-/*   Updated: 2017/09/06 16:20:48 by vsporer          ###   ########.fr       */
+/*   Updated: 2017/09/09 02:57:52 by vsporer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
+#include <limits.h>
 #include <pwd.h>
 #include <grp.h>
 
 static void		get_slink_major_minor(t_file *file, char *path)
 {
-	int		i;
-	char	lnk[256];
+	int			i;
+	char		lnk[256];
 
 	if (S_ISLNK(file->mode))
 	{
@@ -63,21 +64,27 @@ static void		get_mtime(time_t t, t_file *file)
 {
 	char	**mtime;
 
-	if ((mtime = ft_strsplit(ctime(&t), ' ')))
+	if (t > INT_MAX && (mtime = ft_ls_get_time(t)))
+	{
+		file->month = mtime[0];
+		file->day = mtime[1];
+		file->hour = mtime[2];
+		ft_memdel((void**)&mtime);
+	}
+	else if ((mtime = ft_strsplit(ctime(&t), ' ')))
 	{
 		file->month = mtime[1];
 		file->day = mtime[2];
 		mtime[3][5] = '\0';
 		mtime[4][4] = '\0';
-		file->hour = ((time(0) - t) / 2592000) >= 6 || (time(0) - t) < 0 ? \
-		mtime[4] : mtime[3];
+		file->hour = ((time(0) - t) / 2592000) >= 6 || \
+		(time(0) - t) < 0 ? mtime[4] : mtime[3];
 		ft_strdel(&mtime[0]);
 		if (mtime[4] == file->hour)
 			ft_strdel(&mtime[3]);
 		else
 			ft_strdel(&mtime[4]);
-		if (mtime)
-			free((void**)mtime);
+		ft_memdel((void**)&mtime);
 	}
 }
 
@@ -86,6 +93,7 @@ static t_file	*load_file_info(int flag, struct stat *st, t_file *file)
 	file->mtime = st->st_mtime;
 	file->nsec = st->st_mtimespec.tv_nsec;
 	file->mode = st->st_mode;
+	file->sympath = NULL;
 	if (FLAG_L_LOW(flag))
 	{
 		ft_ls_get_permission(st->st_mode, file->perm);
@@ -126,12 +134,14 @@ t_file			*ft_ls_get_file(int flag, char *path)
 			st.st_rdev : 0;
 			file = load_file_info(flag, &st, file);
 			file->block = st.st_blocks;
+			file->perm_den = 0;
+			file->err = 0;
 			if (FLAG_L_LOW(flag))
 				get_slink_major_minor(file, path);
 			return (file);
 		}
-		ft_memdel((void**)&file);
-		file = NULL;
+		file->name = ft_ls_getname_inpath(path);
+		file->perm_den = errno;
 	}
 	return (file);
 }

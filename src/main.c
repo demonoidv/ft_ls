@@ -6,7 +6,7 @@
 /*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/21 02:20:02 by vsporer           #+#    #+#             */
-/*   Updated: 2017/09/06 17:35:40 by vsporer          ###   ########.fr       */
+/*   Updated: 2017/09/09 03:27:23 by vsporer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,16 @@ static int		display_arg(t_file **tab, int flag)
 	}
 	while (tab[i])
 	{
-		dir = ft_ls_get_dir(flag, ft_strdup((tab[i])->name), NULL);
+		if (tab[i]->sympath)
+		{
+			dir = ft_ls_get_dir(flag, ft_strdup(tab[i]->sympath), NULL);
+			dir->path = ft_strdup(tab[i]->name);
+		}
+		else
+			dir = ft_ls_get_dir(flag, ft_strdup(tab[i]->name), NULL);
 		if (dir->perm_den)
 			perm_den = dir->perm_den;
-		if (dir && i == 0 && !tab[i + 1])
+		if (dir && i == 0 && !tab[i + 1] && !tab[i]->err)
 			dir->flag = (dir->flag | 32);
 		if (dir && i == 0)
 			dir->flag = (dir->flag | 64);
@@ -72,33 +78,52 @@ static int		display_arg(t_file **tab, int flag)
 		ft_ls_del_file(&(tab[i]));
 		i++;
 	}
-	if (tab)
-		free(tab);
-	return (perm_den);
+	ft_memdel((void**)&tab);
+	return (0);
+}
+
+static void		create_file_tab(t_file **tab, char **av, int ac, int flag)
+{
+	int		i;
+	int		err;
+	int		pos;
+
+	i = 0;
+	err = 0;
+	pos = 0;
+	while (pos < ac)
+	{
+		if (!av[pos][0])
+		{
+			ft_ls_error(ENOENT, av[pos]);
+			exit(1);
+		}
+		if ((tab[i] = ft_ls_get_file((flag | 32), ft_strdup(av[pos]))))
+			i += ft_ls_symdir(&(tab[i]), &err, flag);
+		pos++;
+	}
+	if (err && tab[0])
+	{
+		tab[0]->err = 1;
+	}
 }
 
 int				main(int ac, char **av)
 {
-	int		i;
 	int		pos;
 	int		flag;
 	t_dir	*dir;
 	t_file	**tab;
 
 	flag = 0;
-	i = 0;
 	if ((pos = ft_ls_parser(ac, av, &flag)) < ac)
 	{
 		if ((tab = (t_file**)malloc(sizeof(t_file*) * ((ac - pos) + 1))))
 		{
 			tab[ac - pos] = NULL;
-			while (pos < ac)
-			{
-				if ((tab[i] = ft_ls_get_file((flag | 32), ft_strdup(av[pos]))))
-					i++;
-				pos++;
-			}
-			if (i > 1)
+			if (pos < ac)
+				create_file_tab(tab, &av[pos], (ac - pos), flag);
+			if (tab[0] && tab[1])
 				ft_ls_sort_arg(tab);
 			return (display_arg(tab, flag));
 		}

@@ -6,7 +6,7 @@
 #    By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/08/20 14:41:19 by vsporer           #+#    #+#              #
-#    Updated: 2017/09/06 17:35:46 by vsporer          ###   ########.fr        #
+#    Updated: 2017/09/09 03:40:36 by vsporer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,7 @@ SRC =			$(PATH_SRC)main.c\
 				$(PATH_SRC)ft_ls_get_infolen.c\
 				$(PATH_SRC)ft_ls_get_permission.c\
 				$(PATH_SRC)ft_ls_del_struct.c\
+				$(PATH_SRC)ft_ls_symdir.c\
 				$(PATH_SRC)ft_ls_recursion.c
 
 OBJ =			$(patsubst $(PATH_SRC)%.c, $(PATH_OBJ)%.o, $(SRC))
@@ -66,6 +67,6 @@ re: fclean all
 test: all
 	@echo "##########Start Test##########"
 	@echo ""
-	./$(NAME) -Rl test
+	./$(NAME) test3
 	@echo ""
 	@echo "###########End Test###########"
