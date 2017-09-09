@@ -6,7 +6,7 @@
 /*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 14:37:57 by vsporer           #+#    #+#             */
-/*   Updated: 2017/09/09 02:57:52 by vsporer          ###   ########.fr       */
+/*   Updated: 2017/09/09 04:21:53 by vsporer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 static void		get_slink_major_minor(t_file *file, char *path)
 {
 	int			i;
-	char		lnk[256];
+	char		lnk[1000];
 
 	if (S_ISLNK(file->mode))
 	{

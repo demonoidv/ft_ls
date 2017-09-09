@@ -6,7 +6,7 @@
 /*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 14:13:25 by vsporer           #+#    #+#             */
-/*   Updated: 2017/09/09 00:37:51 by vsporer          ###   ########.fr       */
+/*   Updated: 2017/09/09 04:16:58 by vsporer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,21 @@ static void		ft_ls_display_file(int flag, t_file *file, t_infolen *len)
 	}
 }
 
+static int		check_hfile(t_file **tab, int flag)
+{
+	int		i;
+
+	i = 0;
+	if (tab)
+	{
+		while (tab[i] && tab[i]->name[0] == '.')
+			i++;
+		if (tab[i] || FLAG_A_LOW(flag))
+			return (1);
+	}
+	return (0);
+}
+
 static void		print_info_dir(t_dir *dir)
 {
 	size_t	lenpath;
@@ -68,7 +83,8 @@ static void		print_info_dir(t_dir *dir)
 	}
 	else if (ISARGFILE(dir->flag))
 		dir->flag = (dir->flag ^ 32);
-	if (FLAG_L_LOW(dir->flag) && !ISFILE(dir->flag) && !dir->perm_den)
+	if (FLAG_L_LOW(dir->flag) && !ISFILE(dir->flag) && !dir->perm_den && \
+	check_hfile(dir->file, dir->flag))
 		ft_printf("total %u\n", count_bloc(dir, dir->flag));
 	else if (ISFILE(dir->flag))
 		dir->flag = (dir->flag ^ 128);

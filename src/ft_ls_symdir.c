@@ -6,7 +6,7 @@
 /*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/09 02:05:53 by vsporer           #+#    #+#             */
-/*   Updated: 2017/09/09 03:43:26 by vsporer          ###   ########.fr       */
+/*   Updated: 2017/09/09 04:20:40 by vsporer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int		ft_ls_symdir(t_file **file, int *error, int flag)
 {
 	struct stat	st;
-	char		lnk[256];
+	char		lnk[1000];
 	int			i;
 	int			ret;
 
