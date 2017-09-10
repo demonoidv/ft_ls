@@ -6,7 +6,7 @@
 /*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 14:13:25 by vsporer           #+#    #+#             */
-/*   Updated: 2017/09/09 05:18:10 by vsporer          ###   ########.fr       */
+/*   Updated: 2017/09/10 01:38:42 by vsporer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,15 @@ static size_t	count_bloc(t_dir *dir, int flag)
 
 static void		ft_ls_display_file(int flag, t_file *file, t_infolen *len)
 {
-	if (!FLAG_L_LOW(flag))
+	if (!FLAG_L_LOW(flag) && FLAG_ONE(flag))
 		ft_putendl(file->name);
+	else if (!FLAG_L_LOW(flag))
+	{
+		if (file->lenmax)
+			ft_printf("%-*s", file->lenmax, file->name);
+		else
+			ft_putendl(file->name);
+	}
 	else
 	{
 		ft_printf("%-11s %*d %-*s %-*s", file->perm, len->lnk, file->nlink, \
@@ -47,7 +54,7 @@ static void		ft_ls_display_file(int flag, t_file *file, t_infolen *len)
 		else
 			ft_printf("%*s ", len->size + 1, file->size);
 		ft_printf("%s %*s %*s %s\n", file->month, 2, file->day, \
-		len->hour, file->hour, file->name);
+		5, file->hour, file->name);
 	}
 }
 
@@ -124,6 +131,8 @@ static void		display_dir(t_dir *dir)
 	{
 		if (FLAG_L_LOW(dir->flag) && !tab[0]->perm_den)
 			ft_ls_get_infolen(tab, &len, dir->flag);
+		else if (!tab[0]->perm_den && !FLAG_ONE(dir->flag))
+			tab = (dir->file = ft_ls_file_inline(dir->file, dir->flag));
 		while (tab[i])
 		{
 			if ((tab[i])->name[0] == '.' && FLAG_A_LOW(dir->flag))

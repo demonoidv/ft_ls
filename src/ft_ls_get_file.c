@@ -6,7 +6,7 @@
 /*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 14:37:57 by vsporer           #+#    #+#             */
-/*   Updated: 2017/09/09 05:39:10 by vsporer          ###   ########.fr       */
+/*   Updated: 2017/09/10 03:25:09 by vsporer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,16 +90,34 @@ static void		get_mtime(time_t t, t_file *file)
 
 static t_file	*load_file_info(int flag, struct stat *st, t_file *file)
 {
-	file->mtime = st->st_mtime;
-	file->nsec = st->st_mtimespec.tv_nsec;
+	if (FLAG_U_LOW(flag))
+	{
+		file->mtime = st->st_atime;
+		file->nsec = st->st_atimespec.tv_nsec;
+	}
+	else if (FLAG_C_LOW(flag))
+	{
+		file->mtime = st->st_ctime;
+		file->nsec = st->st_ctimespec.tv_nsec;
+	}
+	else if (FLAG_U_UP(flag))
+	{
+		file->mtime = st->st_birthtime;
+		file->nsec = st->st_birthtimespec.tv_nsec;
+	}
+	else
+	{
+		file->mtime = st->st_mtime;
+		file->nsec = st->st_mtimespec.tv_nsec;
+	}
 	file->mode = st->st_mode;
 	file->sympath = NULL;
+	file->size = ft_ulltoa_base(st->st_size, 10);
 	if (FLAG_L_LOW(flag))
 	{
 		ft_ls_get_permission(st->st_mode, file->perm);
 		get_usr_grp_name(st, file);
 		file->nlink = st->st_nlink;
-		file->size = ft_ulltoa_base(st->st_size, 10);
 		get_mtime(file->mtime, file);
 	}
 	else
@@ -108,7 +126,6 @@ static t_file	*load_file_info(int flag, struct stat *st, t_file *file)
 		file->usr = NULL;
 		file->grp = NULL;
 		file->nlink = 0;
-		file->size = NULL;
 		file->month = NULL;
 		file->day = NULL;
 		file->hour = NULL;

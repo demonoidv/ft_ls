@@ -12,6 +12,8 @@ static void	get_file_type(char *perm, long mode)
 		*perm = 'c';
 	else if (S_ISFIFO(mode))
 		*perm = 'p';
+	else if (S_ISSOCK(mode))
+		*perm = 's';
 	else
 		*perm = '-';
 }

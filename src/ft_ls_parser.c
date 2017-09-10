@@ -6,7 +6,7 @@
 /*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 16:40:06 by vsporer           #+#    #+#             */
-/*   Updated: 2017/09/08 16:54:55 by vsporer          ###   ########.fr       */
+/*   Updated: 2017/09/10 03:18:11 by vsporer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,15 @@ static int	get_flag(char *arg, int *flag)
 		else if (arg[i] == 't')
 			*flag = (16 | *flag);
 		else if (arg[i] == '1')
-			*flag += 0;
+			*flag = ((FLAG_L_LOW(*flag) ^ *flag) | 256);
+		else if (arg[i] == 'c')
+			*flag = ((FLAG_U_UP(*flag) ^ FLAG_U_LOW(*flag) ^ *flag) | 1024);
+		else if (arg[i] == 'u')
+			*flag = ((FLAG_C_LOW(*flag) ^ FLAG_U_UP(*flag) ^ *flag) | 512);
+		else if (arg[i] == 'U')
+			*flag = ((FLAG_C_LOW(*flag) ^ FLAG_U_LOW(*flag) ^ *flag) | 2048);
+		else if (arg[i] == 'S')
+			*flag = (*flag | 4096);
 		else
 			return (i);
 		i++;

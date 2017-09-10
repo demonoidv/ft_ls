@@ -6,7 +6,7 @@
 /*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 14:24:18 by vsporer           #+#    #+#             */
-/*   Updated: 2017/09/09 02:51:45 by vsporer          ###   ########.fr       */
+/*   Updated: 2017/09/10 02:50:06 by vsporer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,11 @@
 # define ISARGFILE(n) (n & 32)
 # define ISFIRST(n) (n & 64)
 # define ISFILE(n) (n & 128)
+# define FLAG_ONE(n) (n & 256)
+# define FLAG_U_LOW(n) (n & 512)
+# define FLAG_C_LOW(n) (n & 1024)
+# define FLAG_U_UP(n) (n & 2048)
+# define FLAG_S_UP(n) (n & 4096)
 # define MAJOR(dev) ((dev >> 24) & 0xff)
 # define MINOR(dev) (dev & 0xffffff)
 
@@ -49,6 +54,7 @@ typedef struct		s_file
 	long			nsec;
 	int				mode;
 	size_t			block;
+	size_t			lenmax;
 	dev_t			dev;
 	int				perm_den;
 	int				err;
@@ -91,6 +97,7 @@ char				*ft_ls_getname_inpath(char *path);
 char				**ft_ls_get_time(time_t t);
 t_dir				*ft_ls_get_dir(int flag, char *path, t_file **tab);
 t_file				*ft_ls_get_file(int flag, char *path);
+t_file				**ft_ls_file_inline(t_file **tab, int flag);
 size_t				ft_countfindir(char *path);
 
 

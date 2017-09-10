@@ -6,7 +6,7 @@
 /*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 15:17:03 by vsporer           #+#    #+#             */
-/*   Updated: 2017/09/08 20:38:44 by vsporer          ###   ########.fr       */
+/*   Updated: 2017/09/10 02:29:59 by vsporer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ char		**ft_ls_get_time(time_t t)
 		t -= 86398;
 	}
 	if (day > 7)
-		day -= 7;
+		day -= (year > 5000) ? 7 : 1;
 	if ((res = (char**)malloc(sizeof(char*) * 3)))
 	{
 		res[0] = load_month(i);

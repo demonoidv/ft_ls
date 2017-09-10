@@ -66,6 +66,31 @@ static void		sort_r(t_file **tab)
 	}
 }
 
+static void		sort_s(t_file **tab)
+{
+	int					i;
+	int					j;
+	unsigned long long	size1;
+	unsigned long long	size2;
+
+	j = 1;
+	while (j)
+	{
+		i = (j = 0);
+		while (tab[i + 1])
+		{
+			size1 = ft_atoull(tab[i]->size);
+			size2 = ft_atoull(tab[i + 1]->size);
+			if (size1 < size2)
+			{
+				ft_swap_ptr((void**)&(tab[i]), (void**)&(tab[i + 1]));
+				j = 1;
+			}
+			i++;
+		}
+	}
+}
+
 void			ft_ls_sort_arg(t_file **tab)
 {
 	int		i;
@@ -103,9 +128,11 @@ void			ft_ls_sort(t_file **tab,  int flag)
 	if (tab[1])
 	{
 		sort_base(tab);
-		if ((FLAG_T_LOW(flag)))
+		if (FLAG_S_UP(flag))
+			sort_s(tab);
+		else if (FLAG_T_LOW(flag))
 			sort_t(tab);
-		if ((FLAG_R_LOW(flag)))
+		if (FLAG_R_LOW(flag))
 			sort_r(tab);
 	}
 }
