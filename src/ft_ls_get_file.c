@@ -6,7 +6,7 @@
 /*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 14:37:57 by vsporer           #+#    #+#             */
-/*   Updated: 2017/09/10 03:25:09 by vsporer          ###   ########.fr       */
+/*   Updated: 2017/09/11 00:51:33 by vsporer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,8 @@ static void		get_mtime(time_t t, t_file *file)
 	}
 }
 
-static t_file	*load_file_info(int flag, struct stat *st, t_file *file)
+static t_file	*load_file_info(int flag, struct stat *st, t_file *file, \
+char *path)
 {
 	if (FLAG_U_LOW(flag))
 	{
@@ -115,7 +116,7 @@ static t_file	*load_file_info(int flag, struct stat *st, t_file *file)
 	file->size = ft_ulltoa_base(st->st_size, 10);
 	if (FLAG_L_LOW(flag))
 	{
-		ft_ls_get_permission(st->st_mode, file->perm);
+		ft_ls_get_permission(st->st_mode, file->perm, path);
 		get_usr_grp_name(st, file);
 		file->nlink = st->st_nlink;
 		get_mtime(file->mtime, file);
@@ -130,6 +131,8 @@ static t_file	*load_file_info(int flag, struct stat *st, t_file *file)
 		file->day = NULL;
 		file->hour = NULL;
 	}
+	if (S_ISDIR(file->mode) && FLAG_D_LOW(flag))
+		file->mode = (file->mode ^ S_IFDIR) & S_IFREG;
 	return (file);
 }
 
@@ -149,7 +152,7 @@ t_file			*ft_ls_get_file(int flag, char *path)
 				file->name = ft_ls_getname_inpath(path);
 			file->dev = (S_ISCHR(st.st_mode) || S_ISBLK(st.st_mode)) ? \
 			st.st_rdev : 0;
-			file = load_file_info(flag, &st, file);
+			file = load_file_info(flag, &st, file, path);
 			file->block = st.st_blocks;
 			file->perm_den = 0;
 			file->err = 0;

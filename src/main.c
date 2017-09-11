@@ -6,7 +6,7 @@
 /*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/21 02:20:02 by vsporer           #+#    #+#             */
-/*   Updated: 2017/09/10 01:27:17 by vsporer          ###   ########.fr       */
+/*   Updated: 2017/09/10 23:09:22 by vsporer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,28 +112,19 @@ int				main(int ac, char **av)
 {
 	int		pos;
 	int		flag;
-	char	*tmp;
-	t_dir	*dir;
 	t_file	**tab;
 
 	flag = 0;
-	if ((pos = ft_ls_parser(ac, av, &flag)) < ac)
+	if ((pos = ft_ls_parser(ac, av, &flag)) == ac)
+		av[--pos] = ".";
+	if ((tab = (t_file**)malloc(sizeof(t_file*) * ((ac - pos) + 1))))
 	{
-		if ((tab = (t_file**)malloc(sizeof(t_file*) * ((ac - pos) + 1))))
-		{
-			tab[ac - pos] = NULL;
-			if (pos < ac)
-				create_file_tab(tab, &av[pos], (ac - pos), flag);
-			if (tab[0] && tab[1])
-				ft_ls_sort_arg(tab);
-			return (display_arg(tab, flag));
-		}
-		return (1);
+		tab[ac - pos] = NULL;
+		if (pos < ac)
+			create_file_tab(tab, &av[pos], (ac - pos), flag);
+		if (tab[0] && tab[1])
+			ft_ls_sort_arg(tab);
+		return (display_arg(tab, flag));
 	}
-	tmp = ft_strdup(".");
-	dir = ft_ls_get_dir(flag, tmp, NULL);
-	ft_strdel(&tmp);
-	dir->flag = (flag | 32);
-	ft_ls_display_switch(dir);
-	return (0);
+	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/09 19:04:04 by vsporer           #+#    #+#             */
-/*   Updated: 2017/09/10 03:50:06 by vsporer          ###   ########.fr       */
+/*   Updated: 2017/09/11 03:09:40 by vsporer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,13 @@ static int		get_nb_line(t_file **tab, int flag)
 
 	ioctl(0, TIOCGWINSZ, &ws);
 	lenmax = get_len_max(tab, flag);
-	nbcol = ws.ws_col / (lenmax + 1);
-	nbline = (nbline = ft_tablen(tab, flag)) % nbcol ? (nbline / nbcol) + 1 \
-	: nbline / nbcol;
-	return (nbline);
+	if ((nbcol = ws.ws_col / (lenmax + 1)))
+	{
+		nbline = ((nbline = ft_tablen(tab, flag)) % nbcol) ? \
+		(nbline / nbcol) + 1 : nbline / nbcol;
+		return (nbline);
+	}
+	return (ft_tablen(tab, flag));
 }
 
 static t_file	**delete_hfile(t_file **tab, int flag)
@@ -97,10 +100,10 @@ t_file			**ft_ls_file_inline(t_file **tab, int flag)
 	t_file	**new;
 
 	i = 0;
+	if (!FLAG_A_LOW(flag))
+		tab = delete_hfile(tab, flag);
 	if ((new = (t_file**)malloc((sizeof(t_file*) * ft_tablen(tab, flag) + 1))))
 	{
-		if (!FLAG_A_LOW(flag))
-			tab = delete_hfile(tab, flag);
 		lenmax = get_len_max(tab, flag) + 1;
 		nbline = get_nb_line(tab, flag);
 		while (i < nbline)

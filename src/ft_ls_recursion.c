@@ -6,7 +6,7 @@
 /*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/21 02:42:55 by vsporer           #+#    #+#             */
-/*   Updated: 2017/09/07 23:54:46 by demodev          ###   ########.fr       */
+/*   Updated: 2017/09/11 03:14:39 by vsporer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	ft_ls_recursion(t_dir *dir)
 
 	i = 0;
 	tab = dir->file;
+	if (tab && tab[0] && tab[1])
+		ft_ls_sort(tab, dir->flag);
 	while (tab[i])
 	{
 		path = dir->path;

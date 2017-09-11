@@ -6,7 +6,7 @@
 /*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 14:24:18 by vsporer           #+#    #+#             */
-/*   Updated: 2017/09/10 02:50:06 by vsporer          ###   ########.fr       */
+/*   Updated: 2017/09/11 00:52:00 by vsporer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 # define FLAG_C_LOW(n) (n & 1024)
 # define FLAG_U_UP(n) (n & 2048)
 # define FLAG_S_UP(n) (n & 4096)
+# define FLAG_D_LOW(n) (n & 8192)
 # define MAJOR(dev) ((dev >> 24) & 0xff)
 # define MINOR(dev) (dev & 0xffffff)
 
@@ -40,7 +41,7 @@ typedef struct		s_file
 {
 	char			*name;
 	char			*sympath;
-	char			perm[11];
+	char			perm[12];
 	char			*usr;
 	char			*grp;
 	char			*month;
@@ -90,7 +91,7 @@ void				ft_ls_recursion(t_dir *dir);
 void				ft_ls_del_file(t_file **file);
 void				ft_ls_del_dir(t_dir *dir);
 void				ft_ls_display_switch(t_dir *dir);
-void				ft_ls_get_permission(long mode, char *perm);
+void				ft_ls_get_permission(long mode, char *perm, char *path);
 void				ft_ls_get_infolen(t_file **tab, t_infolen *infolen,\
 					int flag);
 char				*ft_ls_getname_inpath(char *path);

@@ -1,4 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_ls_get_permission.c                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/09/10 20:36:12 by vsporer           #+#    #+#             */
+/*   Updated: 2017/09/11 02:33:43 by vsporer          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_ls.h"
+#include <sys/types.h>
+#include <sys/xattr.h>
+#include <sys/acl.h>
 
 static void	get_file_type(char *perm, long mode)
 {
@@ -18,7 +33,7 @@ static void	get_file_type(char *perm, long mode)
 		*perm = '-';
 }
 
-void		ft_ls_get_permission(long mode, char *perm)
+void		ft_ls_get_permission(long mode, char *perm, char *path)
 {
 	get_file_type(perm, mode);
 	perm[1] = (mode & S_IRUSR) ? 'r' : '-';
@@ -39,5 +54,11 @@ void		ft_ls_get_permission(long mode, char *perm)
 		perm[9] = (mode & S_IXOTH) ? 't' : 'T';
 	else
 		perm[9] = (mode & S_IXOTH) ? 'x' : '-';
-	perm[10] = '\0';
+	if (listxattr(path, NULL, 0, XATTR_NOFOLLOW) > 0)
+		perm[10] = '@';
+	else if (acl_get_file(path, ACL_TYPE_EXTENDED))
+		perm[10] = '+';
+	else
+		perm[10] = '\0';
+	perm[11] = '\0';
 }
