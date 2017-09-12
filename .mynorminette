@@ -1,0 +1,168 @@
+Norme: /Users/vsporer/Documents/42/github/ft_ls/includes/ft_ls.h
+Error (line 108): multiple empty lines
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/includes/get_next_line.h
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/includes/ft_printf_list.h
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_atoi.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/includes/ft_printf.h
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_bzero.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_countchar.c
+Error: 42 header not at top of the file
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_atoull.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_isalnum.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_isalpha.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_isascii.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_isprint.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_lstadd.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_lstaddback.c
+Error: 42 header not at top of the file
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_lstdel.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_lstdelone.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_lstiter.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_itoa.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_lstnew.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_memalloc.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/includes/libft.h
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_isdigit.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_memcmp.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_lstmap.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_memchr.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_memccpy.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_memset.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_memdel.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_memcpy.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_nbrlen.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_memmove.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_printf/attribute/ft_printf_get_minus.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_printf/attribute/ft_printf_attribute_zero.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_printf/attribute/ft_printf_get_zero.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_printf/conv_fcn/ft_conv_c.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_printf/conv_fcn/ft_conv_b.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_printf/conv_fcn/ft_conv_lc_cup.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_printf/conv_fcn/ft_conv_not_valid.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_printf/conv_fcn/ft_conv_o.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_printf/conv_fcn/ft_conv_di.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_printf/conv_fcn/ft_conv_percent.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_printf/conv_fcn/ft_conv_s.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_printf/conv_fcn/ft_conv_p.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_printf/conv_fcn/ft_conv_u.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_printf/ft_parser_printf.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_printf/attribute/ft_printf_attribute.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_printf/ft_printf.c
+Error (line 13): preprocessor block must be followed by one empty line
+Error (line 14): comment not well formatted
+Error (line 72): function ft_printf has 26 lines
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_printf/conv_fcn/ft_conv_ls_sup.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_printf/conv_fcn/ft_conv_xp_xup.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_printf/ft_printf_load_struct.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_printf/ft_printf_clear_flag.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_printf/ft_printf_list.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_printf/ft_printf_search_conv.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_printf/ft_printf_switch.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_printf/ft_printf_search_prec.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_printf/ft_printf_lenmod.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_printf/ft_printf_tools.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_printf/ft_printf_tolst.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_putchar.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_printf/ft_printf_search_field.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_putchar_fd.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_putendl.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_putendl_fd.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_putnbr.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_putnbr_fd.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_printf/prec_field/ft_printf_prec.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_putstr_fd.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_putstr_minlen.c
+Error: 42 header not at top of the file
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_strchr.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_strcat.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_strclr.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_strcpy.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_strcmp.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_strdup.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_strequ.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_striter.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_printf/prec_field/ft_printf_field.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_putstr.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_strdel.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_striteri.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_strlen.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_strlcat.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_strjoin.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_strmap.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_strjoin_free.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_strmapi.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_strncat.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_strncmp.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_strnequ.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_strnew.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_strncpy.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_strrchr.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_strnstr.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_strstr.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_strstr_minlen.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_strsub.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_strsubstitute.c
+Error: 42 header not at top of the file
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_swap_ptr.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_tolower.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_ulltoa_base.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_wcharlen.c
+Error: 42 header not at top of the file
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_strsplit.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_toupper.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_wcsrlen.c
+Error: 42 header not at top of the file
+Error (line 20, col 6): missing space around -=
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_wcrtomb.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_strtrim.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/ft_wcsrtombs.c
+Error: 42 header not at top of the file
+Norme: /Users/vsporer/Documents/42/github/ft_ls/src/ft_ls_del_struct.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/src/ft_ls_display_file.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/src/ft_ls_error.c
+Error: 42 header not at top of the file
+Norme: /Users/vsporer/Documents/42/github/ft_ls/libft/src/get_next_line/get_next_line.c
+Norme: /Users/vsporer/Documents/42/github/ft_ls/src/ft_ls_get_dir.c
+Error (line 49): 2 assignations
+Norme: /Users/vsporer/Documents/42/github/ft_ls/src/ft_ls_file_inline.c
+Error (line 30, col 1): missing space after return
+Error (line 62): 2 assignations
+Norme: /Users/vsporer/Documents/42/github/ft_ls/src/ft_ls_display.c
+Error (line 51): function print_info_dir has 41 lines
+Error (line 77): bad indentation
+Error (line 79): bad indentation
+Error (line 135, col 16): bad spacing
+Norme: /Users/vsporer/Documents/42/github/ft_ls/src/ft_ls_get_infolen.c
+Error (line 27): function ft_ls_get_infolen has 38 lines
+Error (line 34): Empty line
+Error (line 58): bad indentation
+Norme: /Users/vsporer/Documents/42/github/ft_ls/src/ft_ls_get_permission.c
+Error (line 36): function ft_ls_get_permission has 26 lines
+Error (line 50): bad indentation
+Norme: /Users/vsporer/Documents/42/github/ft_ls/src/ft_ls_recursion.c
+Error (line 15): function ft_ls_recursion has 28 lines
+Norme: /Users/vsporer/Documents/42/github/ft_ls/src/ft_ls_symdir.c
+Error (line 15): function ft_ls_symdir has 30 lines
+Norme: /Users/vsporer/Documents/42/github/ft_ls/src/ft_ls_parser.c
+Error (line 15): function get_flag has 36 lines
+Error (line 72): bad indentation
+Norme: /Users/vsporer/Documents/42/github/ft_ls/src/ft_ls_get_file.c
+Error (line 56): bad indentation
+Error (line 91): function load_file_info has 43 lines
+Error (line 139): function ft_ls_get_file has 28 lines
+Norme: /Users/vsporer/Documents/42/github/ft_ls/src/ft_ls_sort.c
+Error: 6 functions in the file
+Error: 42 header not at top of the file
+Error (line 20): bad indentation
+Error (line 35): 2 assignations
+Error (line 79): 2 assignations
+Error (line 94): function ft_ls_sort_arg has 28 lines
+Error (line 126, col 31): bad spacing
+Norme: /Users/vsporer/Documents/42/github/ft_ls/src/ft_ls_tools.c
+Error: global scope bad aligned
+Error (line 56): comment not well formatted
+Error (line 56): comment not well placed
+Error (line 99): function ft_ls_get_time has 43 lines
+Norme: /Users/vsporer/Documents/42/github/ft_ls/src/main.c
+Error (line 17): function tab_file_to_dir has 26 lines
+Error (line 47): function display_arg has 33 lines

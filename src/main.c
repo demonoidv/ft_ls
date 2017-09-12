@@ -6,7 +6,7 @@
 /*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/21 02:20:02 by vsporer           #+#    #+#             */
-/*   Updated: 2017/09/10 23:09:22 by vsporer          ###   ########.fr       */
+/*   Updated: 2017/09/12 19:48:44 by vsporer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static t_dir	*tab_file_to_dir(t_file **tab, int flag)
 	return (dir);
 }
 
-static int		display_arg(t_file **tab, int flag)
+static void		display_arg(t_file **tab, int flag)
 {
 	int		i;
 	int		perm_den;
@@ -79,7 +79,6 @@ static int		display_arg(t_file **tab, int flag)
 		i++;
 	}
 	ft_memdel((void**)&tab);
-	return (0);
 }
 
 static void		create_file_tab(t_file **tab, char **av, int ac, int flag)
@@ -124,7 +123,7 @@ int				main(int ac, char **av)
 			create_file_tab(tab, &av[pos], (ac - pos), flag);
 		if (tab[0] && tab[1])
 			ft_ls_sort_arg(tab);
-		return (display_arg(tab, flag));
+		display_arg(tab, flag);
 	}
-	return (1);
+	return (ft_ls_return(GET_ERR));
 }

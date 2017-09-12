@@ -6,7 +6,7 @@
 #    By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/08/20 14:41:19 by vsporer           #+#    #+#              #
-#    Updated: 2017/09/10 03:12:17 by vsporer          ###   ########.fr        #
+#    Updated: 2017/09/12 19:48:28 by vsporer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ SRC =			$(PATH_SRC)main.c\
 				$(PATH_SRC)ft_ls_tools.c\
 				$(PATH_SRC)ft_ls_sort.c\
 				$(PATH_SRC)ft_ls_display.c\
+				$(PATH_SRC)ft_ls_display_file.c\
 				$(PATH_SRC)ft_ls_get_dir.c\
 				$(PATH_SRC)ft_ls_get_file.c\
 				$(PATH_SRC)ft_ls_get_infolen.c\
@@ -68,6 +69,6 @@ re: fclean all
 test: all
 	@echo "##########Start Test##########"
 	@echo ""
-	./$(NAME) -S
+	./$(NAME) Makefile %test
 	@echo ""
 	@echo "###########End Test###########"

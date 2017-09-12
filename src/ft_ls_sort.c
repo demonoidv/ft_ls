@@ -125,7 +125,7 @@ void			ft_ls_sort_arg(t_file **tab)
 
 void			ft_ls_sort(t_file **tab,  int flag)
 {
-	if (tab[1])
+	if (tab && tab[0] && tab[1])
 	{
 		sort_base(tab);
 		if (FLAG_S_UP(flag))

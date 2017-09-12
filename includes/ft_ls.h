@@ -6,7 +6,7 @@
 /*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 14:24:18 by vsporer           #+#    #+#             */
-/*   Updated: 2017/09/11 00:52:00 by vsporer          ###   ########.fr       */
+/*   Updated: 2017/09/12 19:48:22 by vsporer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 # include <errno.h>
 
 # define INVALID_FLAG 0
+# define SET_ERR 0
+# define GET_ERR 1
 # define FLAG_L_LOW(n) (n & 1)
 # define FLAG_R_UP(n) (n & 2)
 # define FLAG_A_LOW(n) (n & 4)
@@ -84,6 +86,7 @@ typedef struct		s_infolen
 int					ft_ls_parser(int ac, char **av, int *flag);
 int					ft_ls_check_path(char *path);
 int					ft_ls_symdir(t_file **file, int *error, int flag);
+int					ft_ls_return(int flag);
 void				ft_ls_error(int err_flag, char *str);
 void				ft_ls_sort(t_file **tab, int flag);
 void				ft_ls_sort_arg(t_file **tab);
@@ -91,14 +94,15 @@ void				ft_ls_recursion(t_dir *dir);
 void				ft_ls_del_file(t_file **file);
 void				ft_ls_del_dir(t_dir *dir);
 void				ft_ls_display_switch(t_dir *dir);
+void				ft_ls_display_file(int flag, t_file *file, t_infolen *len);
 void				ft_ls_get_permission(long mode, char *perm, char *path);
+void				ft_ls_file_inline(t_file **tab, int flag);
 void				ft_ls_get_infolen(t_file **tab, t_infolen *infolen,\
 					int flag);
 char				*ft_ls_getname_inpath(char *path);
 char				**ft_ls_get_time(time_t t);
 t_dir				*ft_ls_get_dir(int flag, char *path, t_file **tab);
 t_file				*ft_ls_get_file(int flag, char *path);
-t_file				**ft_ls_file_inline(t_file **tab, int flag);
 size_t				ft_countfindir(char *path);
 
 

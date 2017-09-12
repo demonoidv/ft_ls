@@ -6,7 +6,7 @@
 /*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/09 19:04:04 by vsporer           #+#    #+#             */
-/*   Updated: 2017/09/11 03:09:40 by vsporer          ###   ########.fr       */
+/*   Updated: 2017/09/12 19:48:40 by vsporer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,63 +66,55 @@ static int		get_nb_line(t_file **tab, int flag)
 	return (ft_tablen(tab, flag));
 }
 
-static t_file	**delete_hfile(t_file **tab, int flag)
+static void		delete_hfile(t_file **tab)
 {
 	int		i;
 	int		j;
-	t_file	**new;
 
-	i = 0;
-	j = 0;
-	if ((new = (t_file**)malloc((sizeof(t_file*) * ft_tablen(tab, flag) + 1))))
+	j = 1;
+	while (j)
 	{
-		while (tab[i])
+		j = 0;
+		i = 0;
+		while (tab[i + 1])
 		{
-			if (tab[i]->name[0] != '.')
-				new[j++] = tab[i];
-			else
-				ft_ls_del_file(&(tab[i]));
+			if (tab[i]->name[0] == '.' && tab[i + 1]->name[0] != '.')
+			{
+				ft_swap_ptr((void**)&(tab[i]), (void**)&(tab[i + 1]));
+				j = 1;
+			}
 			i++;
 		}
-		ft_memdel((void**)&tab);
-		new[j] = NULL;
-		return (new);
 	}
-	return (tab);
+	while (tab[j] && tab[j]->name[0] != '.')
+		j++;
 }
 
-t_file			**ft_ls_file_inline(t_file **tab, int flag)
+void			ft_ls_file_inline(t_file **tab, int flag)
 {
 	int		i;
 	int		j;
 	int		nbline;
 	size_t	lenmax;
-	t_file	**new;
 
 	i = 0;
-	if (!FLAG_A_LOW(flag))
-		tab = delete_hfile(tab, flag);
-	if ((new = (t_file**)malloc((sizeof(t_file*) * ft_tablen(tab, flag) + 1))))
+	if (!FLAG_A_LOW(flag) && tab[0] && tab[1])
+		delete_hfile(tab);
+	lenmax = get_len_max(tab, flag) + 1;
+	nbline = get_nb_line(tab, flag);
+	while (i < nbline)
 	{
-		lenmax = get_len_max(tab, flag) + 1;
-		nbline = get_nb_line(tab, flag);
-		while (i < nbline)
+		j = 0;
+		while ((nbline * j) + i < ft_tablen(tab, flag))
 		{
-			j = 0;
-			while ((nbline * j) + i < ft_tablen(tab, flag))
-			{
-				tab[(nbline * j) + i]->lenmax = lenmax;
-				*new = tab[(nbline * j) + i];
-				new++;
-				j++;
-			}
-			i++;
-			(*(new - 1))->lenmax = 0;
+			if ((nbline * (j + 1)) + i < ft_tablen(tab, flag))
+				ft_printf("%-*s", lenmax, tab[(nbline * j) + i]->name);
+			else
+				ft_putendl(tab[(nbline * j) + i]->name);
+			j++;
 		}
-		*new = NULL;
-		new -= ft_tablen(tab, flag);
-		ft_memdel((void**)&tab);
-		return (new);
+		i++;
 	}
-	return (tab);
+	if (tab && tab[0] && tab[1])
+		ft_ls_sort(tab, flag);
 }
