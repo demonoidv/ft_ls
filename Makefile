@@ -6,7 +6,7 @@
 #    By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/08/20 14:41:19 by vsporer           #+#    #+#              #
-#    Updated: 2017/09/12 19:48:28 by vsporer          ###   ########.fr        #
+#    Updated: 2017/09/14 23:54:19 by vsporer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ SRC =			$(PATH_SRC)main.c\
 				$(PATH_SRC)ft_ls_del_struct.c\
 				$(PATH_SRC)ft_ls_symdir.c\
 				$(PATH_SRC)ft_ls_file_inline.c\
+				$(PATH_SRC)ft_ls_color.c\
 				$(PATH_SRC)ft_ls_recursion.c
 
 OBJ =			$(patsubst $(PATH_SRC)%.c, $(PATH_OBJ)%.o, $(SRC))

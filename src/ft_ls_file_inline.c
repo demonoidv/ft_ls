@@ -6,7 +6,7 @@
 /*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/09 19:04:04 by vsporer           #+#    #+#             */
-/*   Updated: 2017/09/12 19:48:40 by vsporer          ###   ########.fr       */
+/*   Updated: 2017/09/15 01:33:09 by vsporer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,10 +107,13 @@ void			ft_ls_file_inline(t_file **tab, int flag)
 		j = 0;
 		while ((nbline * j) + i < ft_tablen(tab, flag))
 		{
+			ft_ls_color_inline(tab[(nbline * j) + i]->name, \
+			tab[(nbline * j) + i]->mode);
 			if ((nbline * (j + 1)) + i < ft_tablen(tab, flag))
-				ft_printf("%-*s", lenmax, tab[(nbline * j) + i]->name);
+				ft_printf("%*c", lenmax - \
+				ft_strlen(tab[(nbline * j) + i]->name), ' ');
 			else
-				ft_putendl(tab[(nbline * j) + i]->name);
+				ft_putchar('\n');
 			j++;
 		}
 		i++;

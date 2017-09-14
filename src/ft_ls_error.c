@@ -5,9 +5,9 @@ int		ft_ls_return(int flag)
 {
 	static int	err;
 
-	if (flag & SET_ERR)
-		err = 1;
-	else if (flag & GET_ERR)
+	if (flag == SET_ERR)
+		return ((err = 1));
+	else if (flag == GET_ERR)
 		return (err);
 	else
 		return (0);

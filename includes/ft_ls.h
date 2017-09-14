@@ -6,7 +6,7 @@
 /*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 14:24:18 by vsporer           #+#    #+#             */
-/*   Updated: 2017/09/12 19:48:22 by vsporer          ###   ########.fr       */
+/*   Updated: 2017/09/15 01:24:08 by vsporer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,9 +97,11 @@ void				ft_ls_display_switch(t_dir *dir);
 void				ft_ls_display_file(int flag, t_file *file, t_infolen *len);
 void				ft_ls_get_permission(long mode, char *perm, char *path);
 void				ft_ls_file_inline(t_file **tab, int flag);
+void				ft_ls_color_inline(char *name, int mode);
 void				ft_ls_get_infolen(t_file **tab, t_infolen *infolen,\
 					int flag);
 char				*ft_ls_getname_inpath(char *path);
+char				*ft_ls_color(char *name, int mode);
 char				**ft_ls_get_time(time_t t);
 t_dir				*ft_ls_get_dir(int flag, char *path, t_file **tab);
 t_file				*ft_ls_get_file(int flag, char *path);

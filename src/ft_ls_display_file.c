@@ -6,14 +6,15 @@
 /*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/12 12:43:59 by vsporer           #+#    #+#             */
-/*   Updated: 2017/09/12 12:48:42 by vsporer          ###   ########.fr       */
+/*   Updated: 2017/09/15 00:16:19 by vsporer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void		ft_ls_display_file(int flag, t_file *file, t_infolen *len)
+void			ft_ls_display_file(int flag, t_file *file, t_infolen *len)
 {
+	file->name = ft_ls_color(file->name, file->mode);
 	if (!FLAG_L_LOW(flag) && FLAG_ONE(flag))
 		ft_putendl(file->name);
 	else if (!FLAG_L_LOW(flag))
