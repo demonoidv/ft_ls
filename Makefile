@@ -6,7 +6,7 @@
 #    By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/08/20 14:41:19 by vsporer           #+#    #+#              #
-#    Updated: 2017/09/14 23:54:19 by vsporer          ###   ########.fr        #
+#    Updated: 2017/09/15 15:31:05 by vsporer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,6 +70,8 @@ re: fclean all
 test: all
 	@echo "##########Start Test##########"
 	@echo ""
-	./$(NAME) Makefile %test
+	./$(NAME) -d symtest
+	@echo ""
+	ls -d symtest
 	@echo ""
 	@echo "###########End Test###########"

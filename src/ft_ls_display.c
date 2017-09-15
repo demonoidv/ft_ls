@@ -6,7 +6,7 @@
 /*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 14:13:25 by vsporer           #+#    #+#             */
-/*   Updated: 2017/09/12 19:39:10 by vsporer          ###   ########.fr       */
+/*   Updated: 2017/09/15 16:14:58 by vsporer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static void		print_info_dir(t_dir *dir)
 		&& FLAG_A_LOW(dir->flag)))
 			ft_ls_error(dir->file[i]->perm_den, dir->file[i]->name);
 		ft_strdel(&dir->file[i]->name);
-		ft_memdel((void**)&dir->file[i]);
+		ft_memdel((void**)&(dir->file[i]));
 		i++;
 	}
 	if (dir->perm_den)
@@ -89,7 +89,7 @@ static void		print_info_dir(t_dir *dir)
 			ft_ls_error(dir->perm_den, tmp);
 			ft_strdel(&tmp);
 		}
-		ft_memdel((void**)dir->file);
+		ft_memdel((void**)&(dir->file));
 	}
 }
 

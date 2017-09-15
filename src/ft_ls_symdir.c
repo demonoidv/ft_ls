@@ -6,7 +6,7 @@
 /*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/09 02:05:53 by vsporer           #+#    #+#             */
-/*   Updated: 2017/09/12 19:30:14 by vsporer          ###   ########.fr       */
+/*   Updated: 2017/09/15 15:37:29 by vsporer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int		ft_ls_symdir(t_file **file, int *error, int flag)
 	int			i;
 	int			ret;
 
+	(*file)->sympath = NULL;
 	if ((*file)->perm_den)
 	{
 		ft_ls_error((*file)->perm_den, (*file)->name);
@@ -26,7 +27,7 @@ int		ft_ls_symdir(t_file **file, int *error, int flag)
 		(*error)++;
 		return (0);
 	}
-	if (S_ISLNK((*file)->mode) && !FLAG_L_LOW(flag))
+	if (S_ISLNK((*file)->mode) && !FLAG_L_LOW(flag) && !FLAG_D_LOW(flag))
 	{
 		i = readlink((*file)->name, lnk, 255);
 		lnk[i] = '\0';

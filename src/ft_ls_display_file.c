@@ -6,7 +6,7 @@
 /*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/12 12:43:59 by vsporer           #+#    #+#             */
-/*   Updated: 2017/09/15 00:16:19 by vsporer          ###   ########.fr       */
+/*   Updated: 2017/09/15 14:56:31 by vsporer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,14 @@
 
 void			ft_ls_display_file(int flag, t_file *file, t_infolen *len)
 {
-	file->name = ft_ls_color(file->name, file->mode);
-	if (!FLAG_L_LOW(flag) && FLAG_ONE(flag))
-		ft_putendl(file->name);
-	else if (!FLAG_L_LOW(flag))
+/*	else if (!FLAG_L_LOW(flag))
 	{
 		if (file->lenmax)
 			ft_printf("%-*s", file->lenmax, file->name);
 		else
 			ft_putendl(file->name);
-	}
-	else
+	}*/
+	if (FLAG_L_LOW(flag))
 	{
 		ft_printf("%-11s %*d %-*s %-*s", file->perm, len->lnk, file->nlink, \
 		len->usr + 1, file->usr, len->grp + 1, file->grp);
@@ -33,7 +30,8 @@ void			ft_ls_display_file(int flag, t_file *file, t_infolen *len)
 			len->minor, file->minor);
 		else
 			ft_printf("%*s ", len->size + 1, file->size);
-		ft_printf("%s %*s %*s %s\n", file->month, 2, file->day, \
-		5, file->hour, file->name);
+		ft_printf("%s %*s %*s ", file->month, 2, file->day, 5, file->hour);
 	}
+	ft_ls_color(file->name, file->mode);
 }
+

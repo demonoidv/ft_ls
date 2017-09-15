@@ -6,7 +6,7 @@
 /*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/21 02:20:02 by vsporer           #+#    #+#             */
-/*   Updated: 2017/09/12 19:48:44 by vsporer          ###   ########.fr       */
+/*   Updated: 2017/09/15 16:39:35 by vsporer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ static void		create_file_tab(t_file **tab, char **av, int ac, int flag)
 			i += ft_ls_symdir(&(tab[i]), &err, flag);
 		pos++;
 	}
+	tab[i] = NULL;
 	if (err && tab[0])
 	{
 		tab[0]->err = 1;

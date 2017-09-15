@@ -6,7 +6,7 @@
 /*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 15:17:03 by vsporer           #+#    #+#             */
-/*   Updated: 2017/09/10 02:29:59 by vsporer          ###   ########.fr       */
+/*   Updated: 2017/09/15 16:59:13 by vsporer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ int		ft_ls_check_path(char *path)
 		*tmp = '\0';
 		if (stat(path, &st))
 		{
-			*prev = '\0';
-			while (tmp != path && *(tmp - 1) != '/')
-				tmp--;
-			ft_ls_error(errno, tmp);
+//			while (tmp != path && *(tmp - 1) != '/')
+	//			tmp--;
+			*tmp = '/';
+			ft_ls_error(errno, path);
 			return (-1);
 		}
 		*tmp = '/';
