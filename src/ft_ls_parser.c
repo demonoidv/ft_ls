@@ -6,11 +6,30 @@
 /*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 16:40:06 by vsporer           #+#    #+#             */
-/*   Updated: 2017/09/10 21:58:12 by vsporer          ###   ########.fr       */
+/*   Updated: 2017/09/15 22:58:24 by vsporer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
+
+static int	get_other_flag(char arg, int *flag)
+{
+	if (arg == '1')
+		*flag = ((FLAG_L_LOW(*flag) ^ *flag) | 256);
+	else if (arg == 'c')
+		*flag = ((FLAG_U_UP(*flag) ^ FLAG_U_LOW(*flag) ^ *flag) | 1024);
+	else if (arg == 'u')
+		*flag = ((FLAG_C_LOW(*flag) ^ FLAG_U_UP(*flag) ^ *flag) | 512);
+	else if (arg == 'U')
+		*flag = ((FLAG_C_LOW(*flag) ^ FLAG_U_LOW(*flag) ^ *flag) | 2048);
+	else if (arg == 'S')
+		*flag = (*flag | 4096);
+	else if (arg == 'd')
+		*flag = (*flag | 8192);
+	else
+		return (0);
+	return (1);
+}
 
 static int	get_flag(char *arg, int *flag)
 {
@@ -31,19 +50,7 @@ static int	get_flag(char *arg, int *flag)
 			*flag = (8 | *flag);
 		else if (arg[i] == 't')
 			*flag = (16 | *flag);
-		else if (arg[i] == '1')
-			*flag = ((FLAG_L_LOW(*flag) ^ *flag) | 256);
-		else if (arg[i] == 'c')
-			*flag = ((FLAG_U_UP(*flag) ^ FLAG_U_LOW(*flag) ^ *flag) | 1024);
-		else if (arg[i] == 'u')
-			*flag = ((FLAG_C_LOW(*flag) ^ FLAG_U_UP(*flag) ^ *flag) | 512);
-		else if (arg[i] == 'U')
-			*flag = ((FLAG_C_LOW(*flag) ^ FLAG_U_LOW(*flag) ^ *flag) | 2048);
-		else if (arg[i] == 'S')
-			*flag = (*flag | 4096);
-		else if (arg[i] == 'd')
-			*flag = (*flag | 8192);
-		else
+		else if (!get_other_flag(arg[i], flag))
 			return (i);
 		if (FLAG_D_LOW(*flag))
 			*flag = (*flag | 4);

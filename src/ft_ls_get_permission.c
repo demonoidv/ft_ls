@@ -6,7 +6,7 @@
 /*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/10 20:36:12 by vsporer           #+#    #+#             */
-/*   Updated: 2017/09/11 02:33:43 by vsporer          ###   ########.fr       */
+/*   Updated: 2017/09/15 22:48:38 by vsporer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,16 @@ static void	get_file_type(char *perm, long mode)
 		*perm = '-';
 }
 
+static void	acl_and_xattr(char *path, char *perm)
+{
+	if (listxattr(path, NULL, 0, XATTR_NOFOLLOW) > 0)
+		perm[10] = '@';
+	else if (acl_get_file(path, ACL_TYPE_EXTENDED))
+		perm[10] = '+';
+	else
+		perm[10] = '\0';
+}
+
 void		ft_ls_get_permission(long mode, char *perm, char *path)
 {
 	get_file_type(perm, mode);
@@ -54,11 +64,6 @@ void		ft_ls_get_permission(long mode, char *perm, char *path)
 		perm[9] = (mode & S_IXOTH) ? 't' : 'T';
 	else
 		perm[9] = (mode & S_IXOTH) ? 'x' : '-';
-	if (listxattr(path, NULL, 0, XATTR_NOFOLLOW) > 0)
-		perm[10] = '@';
-	else if (acl_get_file(path, ACL_TYPE_EXTENDED))
-		perm[10] = '+';
-	else
-		perm[10] = '\0';
+	acl_and_xattr(path, perm);
 	perm[11] = '\0';
 }

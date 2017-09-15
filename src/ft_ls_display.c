@@ -6,71 +6,18 @@
 /*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 14:13:25 by vsporer           #+#    #+#             */
-/*   Updated: 2017/09/15 16:14:58 by vsporer          ###   ########.fr       */
+/*   Updated: 2017/09/15 22:27:19 by vsporer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static size_t	count_bloc(t_dir *dir, int flag)
-{
-	size_t	nb;
-	t_file	**tab;
-	t_file	*tmp;
-
-	nb = 0;
-	tab = dir->file;
-	if (tab)
-	{
-		while ((tmp = *tab))
-		{
-			if (tmp->name[0] != '.' || (tmp->name[0] == '.' && \
-			FLAG_A_LOW(flag)))
-				nb += tmp->block;
-			tab++;
-		}
-	}
-	return (nb);
-}
-
-static int		check_hfile(t_file **tab, int flag)
+static void		error_in_dir(t_dir *dir)
 {
 	int		i;
-
-	i = 0;
-	if (tab)
-	{
-		while (tab[i] && tab[i]->name[0] == '.')
-			i++;
-		if (tab[i] || FLAG_A_LOW(flag))
-			return (1);
-	}
-	return (0);
-}
-
-static void		print_info_dir(t_dir *dir)
-{
-	size_t	lenpath;
 	char	*tmp;
-	int		i;
 
 	i = 0;
-	if (dir->file && !dir->perm_den)
-		dir->perm_den = dir->file[0]->perm_den;
-	if (!ISARGFILE(dir->flag) && dir->path)
-	{
-		lenpath = ft_strlen(dir->path);
-		if (!ISFIRST(dir->flag))
-			ft_putendl("");
-		ft_printf("%.*s:\n", lenpath, dir->path);
-	}
-	else if (ISARGFILE(dir->flag))
-		dir->flag = (dir->flag ^ 32);
-	if (FLAG_L_LOW(dir->flag) && !ISFILE(dir->flag) && !dir->perm_den && \
-	check_hfile(dir->file, dir->flag))
-		ft_printf("total %u\n", count_bloc(dir, dir->flag));
-	else if (ISFILE(dir->flag))
-		dir->flag = (dir->flag ^ 128);
 	while (dir->file && dir->file[i] && dir->file[i]->perm_den)
 	{
 		if (dir->file)
@@ -91,6 +38,29 @@ static void		print_info_dir(t_dir *dir)
 		}
 		ft_memdel((void**)&(dir->file));
 	}
+}
+
+static void		print_info_dir(t_dir *dir)
+{
+	size_t	lenpath;
+
+	if (dir->file && !dir->perm_den)
+		dir->perm_den = dir->file[0]->perm_den;
+	if (!ISARGFILE(dir->flag) && dir->path)
+	{
+		lenpath = ft_strlen(dir->path);
+		if (!ISFIRST(dir->flag))
+			ft_putendl("");
+		ft_printf("%.*s:\n", lenpath, dir->path);
+	}
+	else if (ISARGFILE(dir->flag))
+		dir->flag = (dir->flag ^ 32);
+	if (FLAG_L_LOW(dir->flag) && !ISFILE(dir->flag) && !dir->perm_den && \
+	ft_ls_check_hfile(dir->file, dir->flag))
+		ft_printf("total %u\n", ft_ls_count_bloc(dir, dir->flag));
+	else if (ISFILE(dir->flag))
+		dir->flag = (dir->flag ^ 128);
+	error_in_dir(dir);
 }
 
 static void		display_dir(t_dir *dir)

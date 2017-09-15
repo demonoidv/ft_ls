@@ -6,7 +6,7 @@
 /*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/09 19:04:04 by vsporer           #+#    #+#             */
-/*   Updated: 2017/09/15 14:57:36 by vsporer          ###   ########.fr       */
+/*   Updated: 2017/09/15 22:20:21 by vsporer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,30 @@ static int		ft_tablen(t_file **tab, int flag)
 	return(tablen);
 }
 
+static void		delete_hfile(t_file **tab)
+{
+	int		i;
+	int		j;
+
+	j = 1;
+	while (j)
+	{
+		j = 0;
+		i = 0;
+		while (tab[i + 1])
+		{
+			if (tab[i]->name[0] == '.' && tab[i + 1]->name[0] != '.')
+			{
+				ft_swap_ptr((void**)&(tab[i]), (void**)&(tab[i + 1]));
+				j = 1;
+			}
+			i++;
+		}
+	}
+	while (tab[j] && tab[j]->name[0] != '.')
+		j++;
+}
+
 static	size_t	get_len_max(t_file **tab, int flag)
 {
 	int		i;
@@ -38,6 +62,8 @@ static	size_t	get_len_max(t_file **tab, int flag)
 
 	i = 0;
 	lenmax = 0;
+	if (!FLAG_A_LOW(flag) && tab[0] && tab[1])
+		delete_hfile(tab);
 	while (tab[i])
 	{
 		if ((len = ft_strlen(tab[i]->name)) > lenmax && (tab[i]->name[0] \
@@ -66,30 +92,6 @@ static int		get_nb_line(t_file **tab, int flag)
 	return (ft_tablen(tab, flag));
 }
 
-static void		delete_hfile(t_file **tab)
-{
-	int		i;
-	int		j;
-
-	j = 1;
-	while (j)
-	{
-		j = 0;
-		i = 0;
-		while (tab[i + 1])
-		{
-			if (tab[i]->name[0] == '.' && tab[i + 1]->name[0] != '.')
-			{
-				ft_swap_ptr((void**)&(tab[i]), (void**)&(tab[i + 1]));
-				j = 1;
-			}
-			i++;
-		}
-	}
-	while (tab[j] && tab[j]->name[0] != '.')
-		j++;
-}
-
 void			ft_ls_file_inline(t_file **tab, int flag)
 {
 	int		i;
@@ -98,8 +100,6 @@ void			ft_ls_file_inline(t_file **tab, int flag)
 	size_t	lenmax;
 
 	i = 0;
-	if (!FLAG_A_LOW(flag) && tab[0] && tab[1])
-		delete_hfile(tab);
 	lenmax = get_len_max(tab, flag) + 1;
 	nbline = get_nb_line(tab, flag);
 	while (i < nbline)
@@ -118,6 +118,5 @@ void			ft_ls_file_inline(t_file **tab, int flag)
 		}
 		i++;
 	}
-	if (tab && tab[0] && tab[1])
-		ft_ls_sort(tab, flag);
+	ft_ls_sort(tab, flag);
 }

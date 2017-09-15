@@ -6,7 +6,7 @@
 /*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 17:52:42 by vsporer           #+#    #+#             */
-/*   Updated: 2017/09/08 00:06:10 by demodev          ###   ########.fr       */
+/*   Updated: 2017/09/15 22:41:19 by vsporer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,34 @@ static void	infolen_init(t_infolen *infolen)
 	infolen->major = 0;
 	infolen->minor = 0;
 }
+static void	load_infolen(t_file **tab, t_infolen *infolen, int i)
+{
+	size_t	res;
+
+	if ((res = ft_nbrlen((tab[i])->nlink)) > infolen->lnk)
+		infolen->lnk = res;
+	if ((res = ft_strlen((tab[i])->usr)) > infolen->usr)
+		infolen->usr = res;
+	if ((res = ft_strlen((tab[i])->grp)) > infolen->grp)
+		infolen->grp = res;
+	if ((res = ft_strlen((tab[i])->day)) > infolen->day)
+		infolen->day = res;
+	if ((res = ft_strlen((tab[i])->hour)) > infolen->hour)
+		infolen->hour = res;
+	if (((tab[i])->perm[0] == 'c' || (tab[i])->perm[0] == 'b') && \
+	(res = ft_nbrlen((tab[i])->major)) > infolen->major)
+		infolen->major = res;
+	if (((tab[i])->perm[0] == 'c' || (tab[i])->perm[0] == 'b') && \
+	(res = ft_nbrlen((tab[i])->minor)) > infolen->minor)
+		infolen->minor = res;
+	if ((tab[i])->perm[0] != 'c' && (tab[i])->perm[0] != 'b' && \
+	(res = ft_strlen((tab[i])->size)) > infolen->size)
+		infolen->size = res;
+}
 
 void		ft_ls_get_infolen(t_file **tab, t_infolen *infolen, int flag)
 {
 	int		i;
-	size_t	res;
 
 	i = 0;
 	infolen_init(infolen);
@@ -37,25 +60,7 @@ void		ft_ls_get_infolen(t_file **tab, t_infolen *infolen, int flag)
 		if ((tab[i])->name[0] != '.' || ((tab[i])->name[0] == '.' && \
 		FLAG_A_LOW(flag)))
 		{
-			if ((res = ft_nbrlen((tab[i])->nlink)) > infolen->lnk)
-				infolen->lnk = res;
-			if ((res = ft_strlen((tab[i])->usr)) > infolen->usr)
-				infolen->usr = res;
-			if ((res = ft_strlen((tab[i])->grp)) > infolen->grp)
-				infolen->grp = res;
-			if ((res = ft_strlen((tab[i])->day)) > infolen->day)
-				infolen->day = res;
-			if ((res = ft_strlen((tab[i])->hour)) > infolen->hour)
-				infolen->hour = res;
-			if (((tab[i])->perm[0] == 'c' || (tab[i])->perm[0] == 'b') && \
-			(res = ft_nbrlen((tab[i])->major)) > infolen->major)
-				infolen->major = res;
-			if (((tab[i])->perm[0] == 'c' || (tab[i])->perm[0] == 'b') && \
-			(res = ft_nbrlen((tab[i])->minor)) > infolen->minor)
-				infolen->minor = res;
-			if ((tab[i])->perm[0] != 'c' && (tab[i])->perm[0] != 'b' && \
-			(res = ft_strlen((tab[i])->size)) > infolen->size)
-			infolen->size = res	;
+			load_infolen(tab, infolen, i);
 			if (infolen->size > infolen->minor)
 				infolen->minor = infolen->size;
 			else if (infolen->size < infolen->minor)

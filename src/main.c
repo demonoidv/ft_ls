@@ -6,7 +6,7 @@
 /*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/21 02:20:02 by vsporer           #+#    #+#             */
-/*   Updated: 2017/09/15 16:39:35 by vsporer          ###   ########.fr       */
+/*   Updated: 2017/09/15 23:56:10 by vsporer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,9 @@ static t_dir	*tab_file_to_dir(t_file **tab, int flag)
 		{
 			if ((file = (t_file**)malloc(sizeof(t_file*) * (i + 1))))
 			{
-				i = 0;
-				while (tab[i] && !S_ISDIR((tab[i])->mode))
-				{
+				i = -1;
+				while (tab[++i] && !S_ISDIR((tab[i])->mode))
 					file[i] = tab[i];
-					i++;
-				}
 				file[i] = NULL;
 			}
 			dir = ft_ls_get_dir(flag, NULL, file);
@@ -44,10 +41,30 @@ static t_dir	*tab_file_to_dir(t_file **tab, int flag)
 	return (dir);
 }
 
+static void		check_arg(t_dir *dir, t_file **tab, int i, int flag)
+{
+	int		perm_den;
+
+	if (tab[i]->sympath)
+	{
+		dir = ft_ls_get_dir(flag, ft_strdup(tab[i]->sympath), NULL);
+		dir->path = ft_strdup(tab[i]->name);
+	}
+	else
+		dir = ft_ls_get_dir(flag, ft_strdup(tab[i]->name), NULL);
+	if (dir->perm_den)
+		perm_den = dir->perm_den;
+	if (dir && i == 0 && !tab[i + 1] && !tab[i]->err)
+		dir->flag = (dir->flag | 32);
+	if (dir && i == 0)
+		dir->flag = (dir->flag | 64);
+	ft_ls_display_switch(dir);
+	ft_ls_del_file(&(tab[i]));
+}
+
 static void		display_arg(t_file **tab, int flag)
 {
 	int		i;
-	int		perm_den;
 	t_dir	*dir;
 
 	i = 0;
@@ -61,21 +78,7 @@ static void		display_arg(t_file **tab, int flag)
 	}
 	while (tab[i])
 	{
-		if (tab[i]->sympath)
-		{
-			dir = ft_ls_get_dir(flag, ft_strdup(tab[i]->sympath), NULL);
-			dir->path = ft_strdup(tab[i]->name);
-		}
-		else
-			dir = ft_ls_get_dir(flag, ft_strdup(tab[i]->name), NULL);
-		if (dir->perm_den)
-			perm_den = dir->perm_den;
-		if (dir && i == 0 && !tab[i + 1] && !tab[i]->err)
-			dir->flag = (dir->flag | 32);
-		if (dir && i == 0)
-			dir->flag = (dir->flag | 64);
-		ft_ls_display_switch(dir);
-		ft_ls_del_file(&(tab[i]));
+		check_arg(dir, tab, i, flag);
 		i++;
 	}
 	ft_memdel((void**)&tab);
