@@ -6,7 +6,7 @@
 /*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/10 20:36:12 by vsporer           #+#    #+#             */
-/*   Updated: 2017/09/15 22:48:38 by vsporer          ###   ########.fr       */
+/*   Updated: 2017/09/18 12:10:26 by vsporer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void		ft_ls_get_permission(long mode, char *perm, char *path)
 	if (mode & S_ISGID)
 		perm[6] = (mode & S_IXGRP) ? 's' : 'S';
 	else
-	perm[6] = (mode & S_IXGRP) ? 'x' : '-';
+		perm[6] = (mode & S_IXGRP) ? 'x' : '-';
 	perm[7] = (mode & S_IROTH) ? 'r' : '-';
 	perm[8] = (mode & S_IWOTH) ? 'w' : '-';
 	if (mode & S_ISVTX)

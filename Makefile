@@ -6,7 +6,7 @@
 #    By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/08/20 14:41:19 by vsporer           #+#    #+#              #
-#    Updated: 2017/09/15 22:25:53 by vsporer          ###   ########.fr        #
+#    Updated: 2017/09/18 15:19:52 by vsporer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,7 @@ SRC =			$(PATH_SRC)main.c\
 				$(PATH_SRC)ft_ls_color.c\
 				$(PATH_SRC)ft_ls_get_time.c\
 				$(PATH_SRC)ft_ls_sort_arg.c\
+				$(PATH_SRC)ft_ls_get_path.c\
 				$(PATH_SRC)ft_ls_recursion.c
 
 OBJ =			$(patsubst $(PATH_SRC)%.c, $(PATH_OBJ)%.o, $(SRC))
@@ -46,34 +47,27 @@ all: $(NAME)
 $(NAME): $(LIBFT) $(OBJ)
 	@echo "Compiling $@ ..."
 	@$(CC) $(INC) $^ -o $@
-	@echo "Done !"
+	@echo "\033[32mDone !\033[0m"
 
 $(LIBFT):
 	@echo "Compilig $@ ..."
 	@cd $(PATH_LIBFT) && $(MAKE)
 
 $(PATH_OBJ)%.o: $(PATH_SRC)%.c
-	@echo "Compiling $< to $@"
+	@echo "\033[35mCompiling $< to $@\033[0m"
 	@mkdir -p $(@D)
 	@$(CC) $(INC) -c $< -o $@
 
 clean:
 	@rm -rf $(PATH_OBJ)
 	@cd $(PATH_LIBFT) && $(MAKE) clean
-	@echo "Object files removed."
+	@echo "\033[31mObject files removed.\033[0m"
 
 fclean: clean
 	@rm -f $(NAME)
 	@rm -f $(LIBFT)
-	@echo "$(NAME) and $(LIBFT) removed."
+	@echo "\033[31m$(NAME) and $(LIBFT) removed.\033[0m"
+
+.PHONY: clean fclean re
 
 re: fclean all
-
-test: all
-	@echo "##########Start Test##########"
-	@echo ""
-	./$(NAME) -d symtest
-	@echo ""
-	ls -d symtest
-	@echo ""
-	@echo "###########End Test###########"

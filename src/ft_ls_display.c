@@ -6,11 +6,36 @@
 /*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 14:13:25 by vsporer           #+#    #+#             */
-/*   Updated: 2017/09/15 22:27:19 by vsporer          ###   ########.fr       */
+/*   Updated: 2017/09/18 20:36:56 by vsporer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
+
+static void	error_file(t_file **tab)
+{
+	int		i;
+	int		j;
+
+	i = 0;
+	while (tab[i])
+	{
+		if (tab[i]->perm_den)
+		{
+			j = 0;
+			ft_ls_error(tab[i]->perm_den, tab[i]->path);
+			ft_ls_del_file(&tab[i]);
+			while (tab[j])
+				j++;
+			if (tab[--j])
+			{
+				tab[i] = tab[j];
+				tab[j] = NULL;
+			}
+		}
+		i++;
+	}
+}
 
 static void		error_in_dir(t_dir *dir)
 {
@@ -18,9 +43,10 @@ static void		error_in_dir(t_dir *dir)
 	char	*tmp;
 
 	i = 0;
+	error_file(dir->file);
+	ft_ls_sort(dir->file, dir->flag);
 	while (dir->file && dir->file[i] && dir->file[i]->perm_den)
 	{
-		if (dir->file)
 		if (dir->file[i]->name[0] != '.' || (dir->file[i]->name[0] == '.' \
 		&& FLAG_A_LOW(dir->flag)))
 			ft_ls_error(dir->file[i]->perm_den, dir->file[i]->name);
@@ -102,7 +128,7 @@ void			ft_ls_display_switch(t_dir *dir)
 		if (FLAG_R_UP(dir->flag) && !dir->perm_den)
 		{
 			if (ISFIRST(dir->flag))
-				dir->flag -=  64;
+				dir->flag -= 64;
 			ft_ls_recursion(dir);
 		}
 		ft_ls_del_dir(dir);

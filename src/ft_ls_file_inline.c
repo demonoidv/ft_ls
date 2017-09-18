@@ -6,7 +6,7 @@
 /*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/09 19:04:04 by vsporer           #+#    #+#             */
-/*   Updated: 2017/09/15 22:20:21 by vsporer          ###   ########.fr       */
+/*   Updated: 2017/09/18 20:37:33 by vsporer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ static int		ft_tablen(t_file **tab, int flag)
 	tablen = 0;
 	while (tab[i])
 	{
-		if (tab[i]->name[0] != '.' || (tab[i]->name[0] == '.' && \
-		FLAG_A_LOW(flag)))
+		if ((tab[i]->name[0] != '.' || \
+		(tab[i]->name[0] == '.' && FLAG_A_LOW(flag))))
 			tablen++;
 		i++;
 	}
-	return(tablen);
+	return (tablen);
 }
 
 static void		delete_hfile(t_file **tab)
@@ -85,8 +85,8 @@ static int		get_nb_line(t_file **tab, int flag)
 	lenmax = get_len_max(tab, flag);
 	if ((nbcol = ws.ws_col / (lenmax + 1)))
 	{
-		nbline = ((nbline = ft_tablen(tab, flag)) % nbcol) ? \
-		(nbline / nbcol) + 1 : nbline / nbcol;
+		nbline = ft_tablen(tab, flag);
+		nbline = (nbline % nbcol) ? (nbline / nbcol) + 1 : nbline / nbcol;
 		return (nbline);
 	}
 	return (ft_tablen(tab, flag));

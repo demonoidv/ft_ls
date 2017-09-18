@@ -6,7 +6,7 @@
 /*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 16:40:06 by vsporer           #+#    #+#             */
-/*   Updated: 2017/09/15 22:58:24 by vsporer          ###   ########.fr       */
+/*   Updated: 2017/09/18 12:13:52 by vsporer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ static void	parser_sort(char **args)
 				ft_swap_ptr((void**)&args[i], (void**)&args[i + 1]);
 				j = 1;
 			}
-		i++;
+			i++;
 		}
 	}
 }

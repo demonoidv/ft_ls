@@ -6,7 +6,7 @@
 /*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 14:24:18 by vsporer           #+#    #+#             */
-/*   Updated: 2017/09/15 22:17:23 by vsporer          ###   ########.fr       */
+/*   Updated: 2017/09/18 20:40:54 by vsporer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@
 typedef struct		s_file
 {
 	char			*name;
+	char			*path;
 	char			*sympath;
 	char			perm[12];
 	char			*usr;
@@ -100,14 +101,15 @@ void				ft_ls_get_permission(long mode, char *perm, char *path);
 void				ft_ls_file_inline(t_file **tab, int flag);
 void				ft_ls_color(char *name, int mode);
 void				ft_ls_color_inline(char *name, int mode);
+void				ft_ls_time_tostr(time_t t, t_file *file);
 void				ft_ls_get_infolen(t_file **tab, t_infolen *infolen,\
 					int flag);
 char				*ft_ls_getname_inpath(char *path);
+char				*ft_ls_get_path(char *path, char *name);
 char				**ft_ls_get_time(time_t t);
 t_dir				*ft_ls_get_dir(int flag, char *path, t_file **tab);
 t_file				*ft_ls_get_file(int flag, char *path);
 size_t				ft_ls_count_bloc(t_dir *dir, int flag);
 size_t				ft_countfindir(char *path);
-
 
 #endif

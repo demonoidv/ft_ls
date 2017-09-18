@@ -6,7 +6,7 @@
 /*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/12 12:43:59 by vsporer           #+#    #+#             */
-/*   Updated: 2017/09/15 21:43:06 by vsporer          ###   ########.fr       */
+/*   Updated: 2017/09/18 19:59:10 by vsporer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void			ft_ls_display_file(int flag, t_file *file, t_infolen *len)
 {
+	if (file->perm_den)
+		return ;
 	if (FLAG_L_LOW(flag))
 	{
 		ft_printf("%-11s %*d %-*s %-*s", file->perm, len->lnk, file->nlink, \
@@ -27,4 +29,3 @@ void			ft_ls_display_file(int flag, t_file *file, t_infolen *len)
 	}
 	ft_ls_color(file->name, file->mode);
 }
-

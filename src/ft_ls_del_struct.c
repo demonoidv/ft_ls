@@ -6,7 +6,7 @@
 /*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/21 00:04:24 by vsporer           #+#    #+#             */
-/*   Updated: 2017/09/15 16:06:00 by vsporer          ###   ########.fr       */
+/*   Updated: 2017/09/18 15:51:01 by vsporer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,11 @@ void		ft_ls_del_file(t_file **todel)
 	if ((file = *todel))
 	{
 		ft_strdel(&(file->name));
+		ft_strdel(&(file->path));
 		ft_strdel(&(file->sympath));
 		if (!file->perm_den)
 		{
-			ft_bzero(file->perm, 10);
+			ft_bzero(file->perm, 11);
 			ft_strdel(&(file->usr));
 			ft_strdel(&(file->grp));
 			ft_strdel(&(file->month));

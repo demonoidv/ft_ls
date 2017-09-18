@@ -6,11 +6,12 @@
 /*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 15:17:03 by vsporer           #+#    #+#             */
-/*   Updated: 2017/09/15 21:37:09 by vsporer          ###   ########.fr       */
+/*   Updated: 2017/09/18 12:41:24 by vsporer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
+#include <limits.h>
 
 static char	*load_month(int i)
 {
@@ -74,4 +75,32 @@ char		**ft_ls_get_time(time_t t)
 		res[2] = ft_strjoin_free(" ", ft_itoa(year), 2);
 	}
 	return (res);
+}
+
+void		ft_ls_time_tostr(time_t t, t_file *file)
+{
+	char	**mtime;
+
+	if (t > INT_MAX && (mtime = ft_ls_get_time(t)))
+	{
+		file->month = mtime[0];
+		file->day = mtime[1];
+		file->hour = mtime[2];
+		ft_memdel((void**)&mtime);
+	}
+	else if ((mtime = ft_strsplit(ctime(&t), ' ')))
+	{
+		file->month = mtime[1];
+		file->day = mtime[2];
+		mtime[3][5] = '\0';
+		mtime[4][4] = '\0';
+		file->hour = ((time(0) - t) / 2592000) >= 6 || \
+		(time(0) - t) < 0 ? mtime[4] : mtime[3];
+		ft_strdel(&mtime[0]);
+		if (mtime[4] == file->hour)
+			ft_strdel(&mtime[3]);
+		else
+			ft_strdel(&mtime[4]);
+		ft_memdel((void**)&mtime);
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/09 02:05:53 by vsporer           #+#    #+#             */
-/*   Updated: 2017/09/15 23:38:29 by vsporer          ###   ########.fr       */
+/*   Updated: 2017/09/18 15:45:32 by vsporer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,17 @@ static int	get_target(t_file **file, int *error, int flag)
 
 int			ft_ls_symdir(t_file **file, int *error, int flag)
 {
+	DIR		*dir;
+
+	dir = NULL;
 	(*file)->sympath = NULL;
+	if (S_ISDIR((*file)->mode) && !(dir = opendir((*file)->name)))
+		(*file)->perm_den = errno;
+	else if (dir)
+		closedir(dir);
 	if ((*file)->perm_den)
 	{
-		ft_ls_error((*file)->perm_den, (*file)->name);
+		ft_ls_error((*file)->perm_den, (*file)->path);
 		ft_ls_del_file(file);
 		(*error)++;
 		return (0);

@@ -6,7 +6,7 @@
 /*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/21 02:42:55 by vsporer           #+#    #+#             */
-/*   Updated: 2017/09/15 23:07:56 by vsporer          ###   ########.fr       */
+/*   Updated: 2017/09/18 17:59:09 by vsporer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,11 @@ static void		recursion_display(char *path, char *name, int flag)
 {
 	if (!ft_strcmp(path, "/"))
 		path = ft_strjoin(path, name);
-	else
+	else if (path[ft_strlen(path) - 1] != '/')
 		path = (path) ? ft_strjoin_free(ft_strjoin(path, "/"), \
 		name, 1) : ft_strdup(name);
+	else
+		path = (path) ? ft_strjoin(path, name) : ft_strdup(name);
 	ft_ls_display_switch(ft_ls_get_dir(flag, path, NULL));
 	if (path)
 		ft_strdel(&path);

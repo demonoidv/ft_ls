@@ -6,7 +6,7 @@
 /*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/15 22:28:07 by vsporer           #+#    #+#             */
-/*   Updated: 2017/09/15 22:28:17 by vsporer          ###   ########.fr       */
+/*   Updated: 2017/09/18 20:10:31 by vsporer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void		sort_base(t_file **tab)
 				ft_swap_ptr((void**)&(tab[i]), (void**)&(tab[i + 1]));
 				j = 1;
 			}
-		i++;
+			i++;
 		}
 	}
 }
@@ -44,7 +44,8 @@ static void		sort_t(t_file **tab)
 	j = 1;
 	while (j)
 	{
-		i = (j = 0);
+		i = 0;
+		j = 0;
 		while (tab[i + 1])
 		{
 			mtime1 = (tab[i])->mtime;
@@ -88,7 +89,8 @@ static void		sort_s(t_file **tab)
 	j = 1;
 	while (j)
 	{
-		i = (j = 0);
+		i = 0;
+		j = 0;
 		while (tab[i + 1])
 		{
 			size1 = ft_atoull(tab[i]->size);
@@ -103,7 +105,7 @@ static void		sort_s(t_file **tab)
 	}
 }
 
-void			ft_ls_sort(t_file **tab,  int flag)
+void			ft_ls_sort(t_file **tab, int flag)
 {
 	if (tab && tab[0] && tab[1])
 	{
