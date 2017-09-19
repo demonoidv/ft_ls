@@ -6,7 +6,7 @@
 /*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/21 00:04:24 by vsporer           #+#    #+#             */
-/*   Updated: 2017/09/18 15:51:01 by vsporer          ###   ########.fr       */
+/*   Updated: 2017/09/19 19:15:19 by vsporer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,23 @@
 
 void		ft_ls_del_file(t_file **todel)
 {
-	t_file	*file;
-
-	if ((file = *todel))
+	if (*todel)
 	{
-		ft_strdel(&(file->name));
-		ft_strdel(&(file->path));
-		ft_strdel(&(file->sympath));
-		if (!file->perm_den)
+		ft_strdel(&((*todel)->name));
+		ft_strdel(&((*todel)->path));
+		if (!(*todel)->perm_den)
 		{
-			ft_bzero(file->perm, 11);
-			ft_strdel(&(file->usr));
-			ft_strdel(&(file->grp));
-			ft_strdel(&(file->month));
-			ft_strdel(&(file->day));
-			ft_strdel(&(file->hour));
-			ft_strdel(&(file->size));
+			ft_strdel(&((*todel)->sympath));
+			ft_bzero((*todel)->perm, 11);
+			ft_strdel(&((*todel)->usr));
+			ft_strdel(&((*todel)->grp));
+			ft_strdel(&((*todel)->month));
+			ft_strdel(&((*todel)->day));
+			ft_strdel(&((*todel)->hour));
+			ft_strdel(&((*todel)->size));
 		}
 		ft_memdel((void**)todel);
+		*todel = NULL;
 	}
 }
 

@@ -6,14 +6,14 @@
 /*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/15 23:58:50 by vsporer           #+#    #+#             */
-/*   Updated: 2017/09/15 23:58:53 by vsporer          ###   ########.fr       */
+/*   Updated: 2017/09/19 19:54:42 by vsporer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 #include <string.h>
 
-int		ft_ls_return(int flag)
+int				ft_ls_return(int flag)
 {
 	static int	err;
 
@@ -25,7 +25,7 @@ int		ft_ls_return(int flag)
 		return (0);
 }
 
-void	ft_ls_error(int err_flag, char *str)
+void			ft_ls_error(int err_flag, char *str)
 {
 	char	*ret;
 
@@ -40,4 +40,45 @@ void	ft_ls_error(int err_flag, char *str)
 	ft_putendl_fd(ret, 2);
 	ft_ls_return(SET_ERR);
 	ft_strdel(&ret);
+}
+
+static void		load_tab_with_new(t_file **dest, t_file **src)
+{
+	int		i;
+
+	i = 0;
+	while (src[i])
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest[i] = NULL;
+}
+
+void			ft_ls_error_file(t_file **tab, int flag)
+{
+	int		i;
+	int		j;
+	t_file	**new;
+
+	i = 0;
+	j = 0;
+	if ((new = (t_file**)malloc(sizeof(t_file*) * \
+	(ft_tablen(tab, (flag | 4)) + 1))))
+	{
+		while (tab[i])
+		{
+			if (tab[i]->perm_den)
+			{
+				ft_ls_error(tab[i]->perm_den, tab[i]->name);
+				ft_ls_del_file(&(tab[i]));
+			}
+			else
+				new[j++] = tab[i];
+			i++;
+		}
+		new[j] = NULL;
+		load_tab_with_new(tab, new);
+		ft_memdel((void**)&new);
+	}
 }

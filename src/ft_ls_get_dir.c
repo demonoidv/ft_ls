@@ -6,34 +6,12 @@
 /*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 14:23:52 by vsporer           #+#    #+#             */
-/*   Updated: 2017/09/18 19:46:21 by vsporer          ###   ########.fr       */
+/*   Updated: 2017/09/19 19:58:02 by vsporer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
-/*
-static void	sort_error(t_file **tab)
-{
-	int		i;
-	int		j;
 
-	j = 1;
-	while (j)
-	{
-		i = 0;
-		j = 0;
-		while (tab[i + 1])
-		{
-			if (tab[i]->perm_den && !tab[i + 1]->perm_den)
-			{
-				ft_swap_ptr((void**)&(tab[i]), (void**)&(tab[i + 1]));
-				j = 1;
-			}
-			i++;
-		}
-	}
-}
-*/
 static void	create_file_tab(t_dir *dir)
 {
 	int				i;

@@ -6,7 +6,7 @@
 /*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/15 22:28:07 by vsporer           #+#    #+#             */
-/*   Updated: 2017/09/18 20:10:31 by vsporer          ###   ########.fr       */
+/*   Updated: 2017/09/19 20:37:38 by vsporer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ static void		sort_t(t_file **tab)
 		{
 			mtime1 = (tab[i])->mtime;
 			mtime2 = (tab[i + 1])->mtime;
-			if (mtime1 < mtime2 || (mtime1 == mtime2 && (tab[i])->nsec < \
-			(tab[i + 1])->nsec))
+			if (tab[i]->perm_den != ENOENT && (mtime1 < mtime2 || \
+			(mtime1 == mtime2 && (tab[i])->nsec < (tab[i + 1])->nsec)))
 			{
 				ft_swap_ptr((void**)&(tab[i]), (void**)&(tab[i + 1]));
 				j = 1;
@@ -93,12 +93,15 @@ static void		sort_s(t_file **tab)
 		j = 0;
 		while (tab[i + 1])
 		{
-			size1 = ft_atoull(tab[i]->size);
-			size2 = ft_atoull(tab[i + 1]->size);
-			if (size1 < size2)
+			if (tab[i]->perm_den != ENOENT && tab[i + 1]->perm_den != ENOENT)
 			{
-				ft_swap_ptr((void**)&(tab[i]), (void**)&(tab[i + 1]));
-				j = 1;
+				size1 = ft_atoull(tab[i]->size);
+				size2 = ft_atoull(tab[i + 1]->size);
+				if (size1 < size2)
+				{
+					ft_swap_ptr((void**)&(tab[i]), (void**)&(tab[i + 1]));
+					j = 1;
+				}
 			}
 			i++;
 		}
@@ -107,6 +110,9 @@ static void		sort_s(t_file **tab)
 
 void			ft_ls_sort(t_file **tab, int flag)
 {
+	int		i;
+
+	i = 0;
 	if (tab && tab[0] && tab[1])
 	{
 		sort_base(tab);

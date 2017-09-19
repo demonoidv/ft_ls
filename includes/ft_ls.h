@@ -6,7 +6,7 @@
 /*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 14:24:18 by vsporer           #+#    #+#             */
-/*   Updated: 2017/09/18 20:40:54 by vsporer          ###   ########.fr       */
+/*   Updated: 2017/09/19 18:17:58 by vsporer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,9 @@ int					ft_ls_check_path(char *path);
 int					ft_ls_symdir(t_file **file, int *error, int flag);
 int					ft_ls_return(int flag);
 int					ft_ls_check_hfile(t_file **tab, int flag);
+int					ft_tablen(t_file **tab, int flag);
 void				ft_ls_error(int err_flag, char *str);
+void				ft_ls_error_file(t_file **tab, int flag);
 void				ft_ls_sort(t_file **tab, int flag);
 void				ft_ls_sort_arg(t_file **tab);
 void				ft_ls_recursion(t_dir *dir);

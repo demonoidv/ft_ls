@@ -6,36 +6,11 @@
 /*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 14:13:25 by vsporer           #+#    #+#             */
-/*   Updated: 2017/09/18 20:36:56 by vsporer          ###   ########.fr       */
+/*   Updated: 2017/09/19 20:38:28 by vsporer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
-
-static void	error_file(t_file **tab)
-{
-	int		i;
-	int		j;
-
-	i = 0;
-	while (tab[i])
-	{
-		if (tab[i]->perm_den)
-		{
-			j = 0;
-			ft_ls_error(tab[i]->perm_den, tab[i]->path);
-			ft_ls_del_file(&tab[i]);
-			while (tab[j])
-				j++;
-			if (tab[--j])
-			{
-				tab[i] = tab[j];
-				tab[j] = NULL;
-			}
-		}
-		i++;
-	}
-}
 
 static void		error_in_dir(t_dir *dir)
 {
@@ -43,17 +18,6 @@ static void		error_in_dir(t_dir *dir)
 	char	*tmp;
 
 	i = 0;
-	error_file(dir->file);
-	ft_ls_sort(dir->file, dir->flag);
-	while (dir->file && dir->file[i] && dir->file[i]->perm_den)
-	{
-		if (dir->file[i]->name[0] != '.' || (dir->file[i]->name[0] == '.' \
-		&& FLAG_A_LOW(dir->flag)))
-			ft_ls_error(dir->file[i]->perm_den, dir->file[i]->name);
-		ft_strdel(&dir->file[i]->name);
-		ft_memdel((void**)&(dir->file[i]));
-		i++;
-	}
 	if (dir->perm_den)
 	{
 		if (dir->path)
@@ -81,6 +45,8 @@ static void		print_info_dir(t_dir *dir)
 	}
 	else if (ISARGFILE(dir->flag))
 		dir->flag = (dir->flag ^ 32);
+	if (dir->file)
+		ft_ls_error_file(dir->file, dir->flag);
 	if (FLAG_L_LOW(dir->flag) && !ISFILE(dir->flag) && !dir->perm_den && \
 	ft_ls_check_hfile(dir->file, dir->flag))
 		ft_printf("total %u\n", ft_ls_count_bloc(dir, dir->flag));

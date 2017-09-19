@@ -6,7 +6,7 @@
 /*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/20 14:37:57 by vsporer           #+#    #+#             */
-/*   Updated: 2017/09/18 19:34:07 by vsporer          ###   ########.fr       */
+/*   Updated: 2017/09/19 19:58:34 by vsporer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ t_file			*ft_ls_get_file(int flag, char *path)
 			return (file);
 		}
 		file->name = ft_ls_getname_inpath(path);
-		file->perm_den = lstat(path, &st) ? errno : ENOENT;
+		file->perm_den = errno;
 		ft_strdel(&path);
 	}
 	return (file);

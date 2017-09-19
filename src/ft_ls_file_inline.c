@@ -6,14 +6,14 @@
 /*   By: vsporer <vsporer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/09 19:04:04 by vsporer           #+#    #+#             */
-/*   Updated: 2017/09/18 20:37:33 by vsporer          ###   ########.fr       */
+/*   Updated: 2017/09/19 20:10:28 by vsporer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 #include <sys/ioctl.h>
 
-static int		ft_tablen(t_file **tab, int flag)
+int				ft_tablen(t_file **tab, int flag)
 {
 	int		i;
 	int		tablen;
@@ -110,8 +110,8 @@ void			ft_ls_file_inline(t_file **tab, int flag)
 			ft_ls_color_inline(tab[(nbline * j) + i]->name, \
 			tab[(nbline * j) + i]->mode);
 			if ((nbline * (j + 1)) + i < ft_tablen(tab, flag))
-				ft_printf("%*c", lenmax - \
-				ft_strlen(tab[(nbline * j) + i]->name), ' ');
+				ft_printf("%*c", (lenmax - \
+				ft_strlen(tab[(nbline * j) + i]->name)), ' ');
 			else
 				ft_putchar('\n');
 			j++;
