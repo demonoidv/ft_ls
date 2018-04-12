@@ -5,6 +5,18 @@ Ce projet conciste a recoder la commande 'ls' d'un système UNIX (Mac OS X dans 
 
 Usage: ./ft_ls [-RSUacdlrtu1] [file ...]
 
+# Compilation (gcc ou clang)
+Executez la ligne de commande suivant pour recuperer les dependances necessaire a la compilation:
+
+    git submodule init && git submodule update
+Puis, pour compiler le projet lancez simplement la commande:
+
+    make
+l'executable sera créé a la racine du projet.
+
 # Exemples d'utilisation
-'./ft_ls -Rla /dev' ou './ft_ls -R -l -a /dev'
+    ./ft_ls -Rla /dev
+ou
+
+    ./ft_ls -R -l -a /dev
 Affichera les informations detaillées (option -l) concernant chaques fichiers (cachés ou non, option -a) contenu dans le repertoire '/dev' ainsi que tout ceux contenus dans les sous-repertoires de '/dev' (option -R) avec un fichier par ligne.
