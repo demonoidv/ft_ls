@@ -6,6 +6,7 @@ Ce projet conciste a recoder la commande 'ls' d'un système UNIX (Mac OS X dans 
 Usage: ./ft_ls [-RSUacdlrtu1] [file ...]
 
 # Compilation (gcc ou clang)
+(Attention: ce projet à été réalisé pour Mac OS X Sierra, il pourrait y avoir des erreurs de compilation sur d'autre systèmes) 
 Executez la ligne de commande suivant pour recuperer les dependances necessaire a la compilation:
 
     git submodule init && git submodule update
